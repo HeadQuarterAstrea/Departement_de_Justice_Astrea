@@ -395,6 +395,7 @@ var ITER = 100000;
 
 var ROLES = {
   presidence: { label: "Présidence Juridique", level: 5, desc: "Autorité suprême du Département. Valide le Code pénal, tranche en dernier ressort et administre les comptes." },
+  sec: { label: "Cabinet Présidentielle", level: 4, desc: "Assure la coordination du Cabinet Présidentiel, le suivi des directives du Président et la gestion des affaires administratives." },
   directeur:  { label: "Directeur de service", level: 4, desc: "Coordonne le BE et l'EAP, supervise l'ensemble des rapports et consulte le secteur administratif." },
   be:         { label: "BE", level: 3, desc: "Bureau d'Enquêtes. Instruit les affaires et rédige les rapports d'enquêtes." },
   eap:        { label: "EAP", level: 3, desc: "Assure les déploiements sur le terrain et rédige les rapports de déploiement." }
@@ -410,7 +411,7 @@ var SECTIONS = [
   { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", read: ALL, write: ["presidence", "directeur", "be"] },
   { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", read: ALL, write: ["presidence", "directeur", "eap"] },
   { id: "hierarchie",  code: "HIE", label: "Hiérarchie", sub: "", read: ALL, write: [] },
-  { id: "admin",       code: "ADM", label: "Secteur admin", sub: "", read: ["presidence", "directeur"], write: ["presidence"] }
+  { id: "admin",       code: "ADM", label: "Secteur admin", sub: "", read: ["presidence", "directeur","sec"], write: ["presidence"] }
 ];
 
 /* ============================================================
