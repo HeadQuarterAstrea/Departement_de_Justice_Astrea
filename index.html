@@ -400,16 +400,16 @@ var ROLES = {
   be:         { label: "Bureau d'Enquête", level: 3, desc: "Bureau d'Enquêtes. Instruit les affaires et rédige les rapports d'enquêtes." },
   eap:        { label: "Equipe d'Application des Peines", level: 3, desc: "Assure les déploiements sur le terrain et rédige les rapports de déploiement." }
 };
-var ROLE_ORDER = ["presidence", "directeur", "be", "eap"];
-var ROLE_BLOCK = { presidence: 1, directeur: 100, be: 200, eap: 300 };
+var ROLE_ORDER = ["presidence", "sec","directeur", "be", "eap"];
+var ROLE_BLOCK = { presidence: 1, sec: 100,directeur: 100, be: 200, eap: 300 };
 
 var ALL = ROLE_ORDER.slice();
 var SECTIONS = [
   { id: "accueil",     code: "ACC", label: "Accueil", sub: "", read: ALL, write: [] },
   { id: "code",        code: "CP",  label: "Code pénal", sub: "", read: ALL, write: [] },
-  { id: "jugement",    code: "RJ",  label: "Rapport de jugement", sub: "Cours", read: ALL, write: ["presidence", "directeur"] },
-  { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", read: ALL, write: ["presidence", "directeur", "be"] },
-  { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", read: ALL, write: ["presidence", "directeur", "eap"] },
+  { id: "jugement",    code: "RJ",  label: "Rapport de jugement", sub: "Cours", read: ALL, write: ["presidence", "sec","directeur"] },
+  { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", read: ALL, write: ["presidence", "sec","directeur", "be"] },
+  { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", read: ALL, write: ["presidence", "sec","directeur", "eap"] },
   { id: "hierarchie",  code: "HIE", label: "Hiérarchie", sub: "", read: ALL, write: [] },
   { id: "admin",       code: "ADM", label: "Secteur admin", sub: "", read: ["presidence", "directeur","sec"], write: ["presidence"] }
 ];
@@ -421,24 +421,24 @@ var CODE = [
   { titre: "Titre I", nom: "Activités hostiles extérieures", arts: [
     { no: "1.1.1", t: "Espionnage", d: "///", p: "Détention de 1 à 3 jours", a: "?" },
     { no: "1.1.2", t: "Manoeuvre de diversion", d: "///", p: "Détention de 1 jour", a: "?" },
-    { no: "1.1.3", t: "Assaut à main armée", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.1.4", t: "Enlèvement de membres du personnel ou vol de documents", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.1.5", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.1.6", t: "Propagande hostile", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.1.7", t: "Transfert non autorisé de ressources de la Fondation ou de ressource communes à des tiers", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.3", t: "Assaut à main armée", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.1.4", t: "Enlèvement de membres du personnel ou vol de documents", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.1.5", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.1.6", t: "Propagande hostile", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.1.7", t: "Transfert non autorisé de ressources de la Fondation ou de ressource communes à des tiers", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
     { no: "1.1.8", t: "Autres entraves aux activités de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
   ]},
   { titre: "Titre II", nom: "Formes de trahison", arts: [
     { no: "2.2.1", t: "Désertion", p: "Détention de 3 à 7 jours", a: "3" },
     { no: "2.2.2", t: "Diffusion d’informations contenant des informations confidentielles", p: "Détention de 1 à 3 jours", a: "?" },
-    { no: "2.2.3", t: "Refus d’exécuter des ordres", d: "Dégradation ou neutralisation volontaire d'un équipement, d'un accès ou d'un système de l'Installation.", p: "Détention de 5 à 10 jours", a: "?" }
-    { no: "1.2.4", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.2.5", t: "Adhésion à un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.2.6", t: "Interaction non autorisée avec un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.2.7", t: "Sabotage", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.2.8", t: "Violation délibérée de la Confidentialité", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.2.9", t: "Vol d’objets et de documents ou enlèvement de membres du personnel de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
-    { no: "1.2.10", t: "Aide à l’évasion de membres du personnel de classe Delta ou d’autres individus sous la garde de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "2.2.3", t: "Refus d’exécuter des ordres", d: "Dégradation ou neutralisation volontaire d'un équipement, d'un accès ou d'un système de l'Installation.", p: "Détention de 5 à 10 jours", a: "?" },
+    { no: "1.2.4", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.5", t: "Adhésion à un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.6", t: "Interaction non autorisée avec un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.7", t: "Sabotage", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.8", t: "Violation délibérée de la Confidentialité", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.9", t: "Vol d’objets et de documents ou enlèvement de membres du personnel de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.10", t: "Aide à l’évasion de membres du personnel de classe Delta ou d’autres individus sous la garde de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
     { no: "1.2.11", t: "Autres formes de trahison", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
   ]},
   { titre: "Titre III", nom: "Atteintes à l'autorité", arts: [
