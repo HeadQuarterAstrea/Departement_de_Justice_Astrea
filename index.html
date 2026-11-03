@@ -397,8 +397,8 @@ var ROLES = {
   presidence: { label: "Présidence Juridique", level: 5, desc: "Autorité suprême du Département. Valide le Code pénal, tranche en dernier ressort et administre les comptes." },
   sec: { label: "Cabinet Présidentielle", level: 4, desc: "Assure la coordination du Cabinet Présidentiel, le suivi des directives du Président et la gestion des affaires administratives." },
   directeur:  { label: "Directeur de service", level: 4, desc: "Coordonne le BE et l'EAP, supervise l'ensemble des rapports et consulte le secteur administratif." },
-  be:         { label: "BE", level: 3, desc: "Bureau d'Enquêtes. Instruit les affaires et rédige les rapports d'enquêtes." },
-  eap:        { label: "EAP", level: 3, desc: "Assure les déploiements sur le terrain et rédige les rapports de déploiement." }
+  be:         { label: "Bureau d'Enquête", level: 3, desc: "Bureau d'Enquêtes. Instruit les affaires et rédige les rapports d'enquêtes." },
+  eap:        { label: "Equipe d'Application des Peines", level: 3, desc: "Assure les déploiements sur le terrain et rédige les rapports de déploiement." }
 };
 var ROLE_ORDER = ["presidence", "directeur", "be", "eap"];
 var ROLE_BLOCK = { presidence: 1, directeur: 100, be: 200, eap: 300 };
@@ -418,15 +418,29 @@ var SECTIONS = [
    CONTENU D'EXEMPLE (à remplacer par les vrais documents)
    ============================================================ */
 var CODE = [
-  { titre: "Titre I", nom: "Atteintes aux personnes", arts: [
-    { no: "101", t: "Violences volontaires", d: "Toute atteinte physique portée volontairement à un membre du personnel ou à un tiers.", p: "Détention de 1 à 3 jours", a: "500 à 2 000" },
-    { no: "102", t: "Menaces", d: "Propos ou gestes destinés à intimider une personne ou à lui faire craindre une atteinte.", p: "Détention de 1 jour", a: "300 à 1 000" },
-    { no: "103", t: "Homicide", d: "Fait de donner volontairement la mort à autrui.", p: "Détention de 7 à 14 jours", a: "5 000 à 20 000" }
+  { titre: "Titre I", nom: "Activités hostiles extérieures", arts: [
+    { no: "1.1.1", t: "Espionnage", d: "///", p: "Détention de 1 à 3 jours", a: "?" },
+    { no: "1.1.2", t: "Manoeuvre de diversion", d: "///", p: "Détention de 1 jour", a: "?" },
+    { no: "1.1.3", t: "Assaut à main armée", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.4", t: "Enlèvement de membres du personnel ou vol de documents", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.5", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.6", t: "Propagande hostile", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.7", t: "Transfert non autorisé de ressources de la Fondation ou de ressource communes à des tiers", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.8", t: "Autres entraves aux activités de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+
   ]},
-  { titre: "Titre II", nom: "Atteintes à la Fondation", arts: [
-    { no: "201", t: "Divulgation d'informations classifiées", d: "Communication à une personne non habilitée d'un document, d'une donnée ou d'un renseignement classifié.", p: "Détention de 3 à 7 jours", a: "2 000 à 10 000" },
-    { no: "202", t: "Violation de périmètre de sécurité", d: "Franchissement d'une zone interdite ou d'un secteur sans l'accréditation requise.", p: "Détention de 1 à 3 jours", a: "500 à 2 500" },
-    { no: "203", t: "Sabotage d'installation", d: "Dégradation ou neutralisation volontaire d'un équipement, d'un accès ou d'un système de l'Installation.", p: "Détention de 5 à 10 jours", a: "3 000 à 15 000" }
+  { titre: "Titre II", nom: "Formes de trahison", arts: [
+    { no: "2.2.1", t: "Désertion", p: "Détention de 3 à 7 jours", a: 3," },
+    { no: "2.2.2", t: "Diffusion d’informations contenant des informations confidentielles", p: "Détention de 1 à 3 jours", a: "?" },
+    { no: "2.2.3", t: "Refus d’exécuter des ordres", d: "Dégradation ou neutralisation volontaire d'un équipement, d'un accès ou d'un système de l'Installation.", p: "Détention de 5 à 10 jours", a: "?" }
+    { no: "1.2.4", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.5", t: "Adhésion à un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.6", t: "Interaction non autorisée avec un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.7", t: "Sabotage", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.8", t: "Violation délibérée de la Confidentialité", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.9", t: "Vol d’objets et de documents ou enlèvement de membres du personnel de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.10", t: "Aide à l’évasion de membres du personnel de classe Delta ou d’autres individus sous la garde de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.11", t: "Autres formes de trahison", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
   ]},
   { titre: "Titre III", nom: "Atteintes à l'autorité", arts: [
     { no: "301", t: "Refus d'obtempérer", d: "Refus de se conformer à l'ordre légitime d'un agent habilité lors d'un contrôle ou d'une intervention.", p: "Détention de 1 jour", a: "300 à 1 500" },
