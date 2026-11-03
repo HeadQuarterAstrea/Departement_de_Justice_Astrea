@@ -400,18 +400,18 @@ var ROLES = {
   be:         { label: "Bureau d'Enquête", level: 3, desc: "Bureau d'Enquêtes. Instruit les affaires et rédige les rapports d'enquêtes." },
   eap:        { label: "Equipe d'Application des Peines", level: 3, desc: "Assure les déploiements sur le terrain et rédige les rapports de déploiement." }
 };
-var ROLE_ORDER = ["presidence", "sec","directeur", "be", "eap"];
-var ROLE_BLOCK = { presidence: 1, sec: 100,directeur: 100, be: 200, eap: 300 };
+var ROLE_ORDER = ["presidence", "sec", "directeur", "be", "eap"];
+var ROLE_BLOCK = { presidence: 1, sec: 100, directeur: 100, be: 200, eap: 300 };
 
 var ALL = ROLE_ORDER.slice();
 var SECTIONS = [
   { id: "accueil",     code: "ACC", label: "Accueil", sub: "", read: ALL, write: [] },
   { id: "code",        code: "CP",  label: "Code pénal", sub: "", read: ALL, write: [] },
-  { id: "jugement",    code: "RJ",  label: "Rapport de jugement", sub: "Cours", read: ALL, write: ["presidence", "sec","directeur"] },
-  { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", read: ALL, write: ["presidence", "sec","directeur", "be"] },
-  { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", read: ALL, write: ["presidence", "sec","directeur", "eap"] },
+  { id: "jugement",    code: "RJ",  label: "Rapport de jugement", sub: "Cours", read: ALL, write: ["presidence", "sec", "directeur"] },
+  { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", read: ALL, write: ["presidence", "sec", "directeur", "be"] },
+  { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", read: ALL, write: ["presidence", "sec", "directeur", "eap"] },
   { id: "hierarchie",  code: "HIE", label: "Hiérarchie", sub: "", read: ALL, write: [] },
-  { id: "admin",       code: "ADM", label: "Secteur admin", sub: "", read: ["presidence", "directeur","sec"], write: ["presidence"] }
+  { id: "admin",       code: "ADM", label: "Secteur admin", sub: "", read: ["presidence", "directeur", "sec"], write: ["presidence"] }
 ];
 
 /* ============================================================
