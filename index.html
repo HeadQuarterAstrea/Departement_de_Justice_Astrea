@@ -218,6 +218,10 @@ nav.menu { display: flex; flex-direction: column; padding: .8rem 0; flex: 1; }
   letter-spacing: .06em;
   margin: 1rem 0 0;
 }
+  .titre-notice {
+  color: var(--seal);
+  margin: .8rem 0;
+}
 
 /* rapports */
 details.rep { border-bottom: 1px solid var(--paper-rule); }
@@ -424,7 +428,10 @@ var SECTIONS = [
    CONTENU D'EXEMPLE (à remplacer par les vrais documents)
    ============================================================ */
 var CODE = [
-  { titre: "Titre I", nom: "Activités hostiles extérieures", arts: [
+  { titre: "Titre I", nom: "Activités hostiles extérieures",   sections: [
+    {
+      nom: "Section 1",
+      arts: [
     { no: "1.1.1", t: "Espionnage", d: "///", p: "Détention de 1 à 3 jours", a: "?" },
     { no: "1.1.2", t: "Manoeuvre de diversion", d: "///", p: "Détention de 1 jour", a: "?" },
     { no: "1.1.3", t: "Assaut à main armée", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
@@ -434,29 +441,40 @@ var CODE = [
     { no: "1.1.7", t: "Transfert non autorisé de ressources de la Fondation ou de ressource communes à des tiers", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
     { no: "1.1.8", t: "Autres entraves aux activités de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
   ]},
+   {
+      nom: "Section 2",
+      arts: [
+    { no: "2.2.1", t: "Désertion", p: "Détention de 3 à 7 jours", a: "3" },
+    { no: "2.2.2", t: "Diffusion d’informations contenant des informations confidentielles", p: "Détention de 1 à 3 jours", a: "?" },
+    { no: "2.2.3", t: "Refus d’exécuter des ordres", d: "Dégradation ou neutralisation volontaire d'un équipement, d'un accès ou d'un système de l'Installation.", p: "Détention de 5 à 10 jours", a: "?" },
+    { no: "1.2.4", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.5", t: "Adhésion à un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.6", t: "Interaction non autorisée avec un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.7", t: "Sabotage", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.8", t: "Violation délibérée de la Confidentialité", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.9", t: "Vol d’objets et de documents ou enlèvement de membres du personnel de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.10", t: "Aide à l’évasion de membres du personnel de classe Delta ou d’autres individus sous la garde de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.11", t: "Autres formes de trahison", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+      ]}
+  ]},
   { titre: "Titre II", nom: "CRIMES CONTRE LA NORMALITÉ ET L’HUMANITÉ", arts: [
     { no: "2.1", t: "Utilisation d’objets anormaux contre l’humanité :", p: "Détention de 3 à 7 jours", a: "3" },
     { no: "2.2", t: "Manquement grave à des procédures de confinement spéciales entraînant des dommages importants et/ou des pertes humaines en dehors de la Fondation", p: "Détention de 1 à 3 jours", a: "?" },
     { no: "2.3", t: "Manquement grave à des procédures de confinement spéciales entraînant des altération irréversible de la réalité", d: "", p: "Détention de 5 à 10 jours", a: "?" }
   ]},
-{
-  titre: "Titre III",
-  nom: "INFRACTIONS DISCIPLINAIRES GRAVES",
+{ titre: "Titre III", nom: "INFRACTIONS DISCIPLINAIRES GRAVES",
   sections: [
     {
       nom: "Section 1",
       arts: [
-        { no: "3.1", t: "///", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
-      ]
-    },
+        { no: "3.1", t: "Violation grave de la confidentialité", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
+      ]},
     {
       nom: "Section 2",
       arts: [
         { no: "3.2", t: "Intitulé de l’infraction", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
-      ]
-    }
-  ]
-},
+      ]}
+  ]},
   { titre: "TITRE - IV", nom: "RÉALISATION DE SCÉNARIOS DE CLASSE-K", arts: [
     { no: "4.1", t: "Génocide à échelle mondiale", d: "///", p: "Détention de 1 à 2 jours", a: "500 à 3 000" },
     { no: "4.2", t: "Diffusion à grande échelle d’informations contenant des dangers-sensitifs ou des mémétiques", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
@@ -468,8 +486,17 @@ var CODE = [
     { no: "4.8", t: "Prise de conscience de la menace paranormale", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
     { no: "4.9", t: "Autres tentatives de réalisation de scénarios de Classe-K", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
   ]},
-  { titre: "TITRE - V", nom: "CRIMES COMMIS PAR DES ÉTATS OU DES ENTREPRISES", arts: [
-    { no: "5.1", t: "///", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+  { titre: "TITRE - V", nom: "CRIMES COMMIS PAR DES ÉTATS OU DES ENTREPRISES", notice: "Le DJI ne traite pas les affaires entrant dans le cadre de ce chapitre. Tous les suspects et les documents liés à ce type d'affaires sont envoyés à la CMO pour faire l'objet d'une procédure judiciaire en vertu de la Convention Secrète no 76 des Nations Unies.", arts: [
+    { no: "5.1", t: "Développement d'armes basées sur des technologies anormales", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.2", t: "Opérations militaires basées sur l'utilisation de technologies et d'objets • anormaux", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.3", t: "Utilisation d'objets anormaux dans l'objectif d'affecter des éléments politiques intérieurs ou extérieurs", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.4", t: "Utilisation d'objets anormaux pour limiter les droits et libertés d'une société", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.5", t: "Divulgation publique de l'existence de la Fondation SCP ou du monde de l'anormal (ou même de certains objets)", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.6", t: "Utilisation d'une technologie anormale entraînant une supériorité technologique ou financière", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.7", t: "Utilisation d'objets anormaux entraînant une domination géopolitique", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.8", t: "Conservation d'objets anormaux ou déclaration de fausses informations concernant leurs propriétés anormales à l'encontre de la CMO ou de la Fondation SCP", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.9", t: "Collaboration avec un GdI figurant sur la liste des organisations hors-la-loi (voir l'Addendum no 2 de la Convention Secrète no 76 de l'ONU)", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
+    { no: "5.10", t: "Autres types de crimes commis par des États ou des entreprises", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
   ]},
   { titre: "TITRE - VI", nom: "AUTRES INFRACTIONS", arts: [
     { no: "6.1", t: "Connaissance de procédés pour la création d'objets anormaux", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
@@ -478,7 +505,7 @@ var CODE = [
     { no: "6.4", t: "Destruction non autorisée et délibérée d'un objet anormal par un membre du personnel de la Fondation SCP", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
     { no: "6.5", t: "Refus de l'auto-élimination, convenue par une clause ou nécessaire dans des conditions particulières", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
   ]},
-  { titre: "TITRE - VII", nom: "INFRACTIONS PROPRES AUX INSTALLATIONS", arts: [
+  { titre: "TITRE - VII", nom: "INFRACTIONS PROPRES AUX INSTALLATIONS", notice: "(Les articles ci-dessous sont propres aux installations pour les cas ne rentrant pas dans les compétences du Département de Justice Interne mais que les membres de la direction de l’installation souhaitent donner ces responsabilités aux membres du DJI)", arts: [
     { no: "7.1", t: "Utilisation non-réglementaire de la radio de l’installation", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
     { no: "7.2", t: "Création d’un groupe, d’une association ou tous autres rassemblements de membres du personnel dans un but idéologique", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
     { no: "7.3", t: "Propagande de tous genres pour un mouvement ou une idéologique politique quelconque", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
@@ -881,7 +908,7 @@ function codeList(q) {
 
     if (!groupHtml) return "";
 
-    return '<section class="titre-block" id="t' + i + '"><h3 class="h3">' + esc(b.nom) + '<small>' + esc(b.titre) + '</small></h3>' +
+    return '<section class="titre-block" id="t' + i + '"><h3 class="h3">' + esc(b.nom) + '<small>' + esc(b.titre) + '</small></h3>' + (b.notice ? '<p class="titre-notice">' + esc(b.notice) + '</p>' : '') +
       groupHtml + '</section>';
   }).join("");
 
