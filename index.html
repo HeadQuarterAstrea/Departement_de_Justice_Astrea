@@ -432,14 +432,14 @@ var CODE = [
     {
       nom: "Section 1",
       arts: [
-    { no: "1.1.1", t: "Espionnage", d: "///", p: "Détention de 1 à 3 jours", a: "?" },
-    { no: "1.1.2", t: "Manoeuvre de diversion", d: "///", p: "Détention de 1 jour", a: "?" },
-    { no: "1.1.3", t: "Assaut à main armée", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.1.4", t: "Enlèvement de membres du personnel ou vol de documents", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.1.5", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.1.6", t: "Propagande hostile", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.1.7", t: "Transfert non autorisé de ressources de la Fondation ou de ressource communes à des tiers", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.1.8", t: "Autres entraves aux activités de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.1.1", t: "Espionnage", d: "Collecte ou transmission d'informations confidentielles au profit d'un tiers.", p: "Détention de 1 à 3 jours", a: "750" },
+    { no: "1.1.2", t: "Manoeuvre de diversion", d: "Action visant à détourner l'attention ou perturber les activités de la Fondation.", p: "Avertissement écrit à 1 jour de détention", a: "N/A" },
+    { no: "1.1.3", t: "Assaut à main armée", d: "Agression armée contre le personnel ou les installations.", p: "Détention de 7 à 14 jours", a: "1000" },
+    { no: "1.1.4", t: "Enlèvement de membres du personnel ou vol de documents", d: "Capture ou séquestration d'un membre du personnel.", p: "Détention de 10 à 14 jours", a: "1500" },
+    { no: "1.1.5", t: "Vol d’objets anormaux", d: "Appropriation non autorisée d'un objet anormal.", p: "Détention de 5 à 14 jours", a: "1000" },
+    { no: "1.1.6", t: "Propagande hostile", d: "Diffusion de contenus portant atteinte aux intérêts de la Fondation.", p: "Détention de 7 à 14 jours", a: "300" },
+    { no: "1.1.7", t: "Transfert non autorisé de ressources de la Fondation ou de ressource communes à des tiers", d: "Cession de ressources de la Fondation à des tiers sans autorisation.", p: "Détention de 7 à 14 jours", a: "750" },
+    { no: "1.1.8", t: "Autres entraves aux activités de la Fondation", d: "Toute action extérieure perturbant les opérations de la Fondation.", p: "Détention de 7 à 14 jours", a: "Variable" }
   ]},
    {
       nom: "Section 2",
@@ -447,14 +447,14 @@ var CODE = [
     { no: "2.2.1", t: "Désertion", p: "Détention de 3 à 7 jours", a: "3" },
     { no: "2.2.2", t: "Diffusion d’informations contenant des informations confidentielles", p: "Détention de 1 à 3 jours", a: "?" },
     { no: "2.2.3", t: "Refus d’exécuter des ordres", d: "Dégradation ou neutralisation volontaire d'un équipement, d'un accès ou d'un système de l'Installation.", p: "Détention de 5 à 10 jours", a: "?" },
-    { no: "1.2.4", t: "Vol d’objets anormaux", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.5", t: "Adhésion à un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.6", t: "Interaction non autorisée avec un GDI {Groupe d'Intérêts}", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.7", t: "Sabotage", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.8", t: "Violation délibérée de la Confidentialité", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.9", t: "Vol d’objets et de documents ou enlèvement de membres du personnel de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.10", t: "Aide à l’évasion de membres du personnel de classe Delta ou d’autres individus sous la garde de la Fondation", d: "///", p: "Détention de 7 à 14 jours", a: "?" },
-    { no: "1.2.11", t: "Autres formes de trahison", d: "///", p: "Détention de 7 à 14 jours", a: "?" }
+    { no: "1.2.4", t: "Vol d’objets anormaux", d: "Appropriation ou déplacement non autorisé d'un objet anormal.", p: "Détention de 7 à 14 jours + retrait des accès", a: "?" },
+    { no: "1.2.5", t: "Adhésion à un GDI {Groupe d'Intérêts}", d: "Collaboration ou appartenance à un Groupe d'Intérêt hostile.", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.6", t: "Interaction non autorisée avec un GDI {Groupe d'Intérêts}", d: "Contact non autorisé avec un Groupe d'Intérêt.", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.7", t: "Sabotage", d: "Dégradation volontaire des équipements ou installations.", p: "Détention de 7 à 14 jours + révocation éventuelle", a: "?" },
+    { no: "1.2.8", t: "Violation délibérée de la Confidentialité", d: "Divulgation volontaire d'informations protégées.", p: "Détention de 3 à 10 jours + retrait des accès", a: "?" },
+    { no: "1.2.9", t: "Vol d’objets et de documents ou enlèvement de membres du personnel de la Fondation", d: "Vol de biens ou enlèvement d'un membre du personnel.", p: "Détention de 7 à 14 jours", a: "?" },
+    { no: "1.2.10", t: "Aide à l’évasion de membres du personnel de classe Delta ou d’autres individus sous la garde de la Fondation", d: "Assistance apportée à un détenu pour faciliter son évasion.", p: "Détention de 7 à 14 jours + révocation éventuelle", a: "?" },
+    { no: "1.2.11", t: "Autres formes de trahison", d: "Tout acte portant volontairement atteinte à la Fondation.", p: "Selon gravité, jusqu'à l'exclusion définitive", a: "?" }
       ]}
   ]},
   { titre: "Titre II", nom: "CRIMES CONTRE LA NORMALITÉ ET L’HUMANITÉ", arts: [
