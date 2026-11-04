@@ -212,6 +212,12 @@ nav.menu { display: flex; flex-direction: column; padding: .8rem 0; flex: 1; }
 .search { max-width: 24rem; }
 .empty { color: var(--ink-2); padding: 1rem 0; font-style: italic; }
 .note { border-left: 4px solid var(--seal); padding: .55rem 1rem; background: rgba(194,53,43,.07); font-size: .92rem; }
+.section-title {
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin: 1rem 0 0;
+}
 
 /* rapports */
 details.rep { border-bottom: 1px solid var(--paper-rule); }
@@ -433,9 +439,24 @@ var CODE = [
     { no: "2.2", t: "Manquement grave à des procédures de confinement spéciales entraînant des dommages importants et/ou des pertes humaines en dehors de la Fondation", p: "Détention de 1 à 3 jours", a: "?" },
     { no: "2.3", t: "Manquement grave à des procédures de confinement spéciales entraînant des altération irréversible de la réalité", d: "", p: "Détention de 5 à 10 jours", a: "?" }
   ]},
-  { titre: "Titre III", nom: "INFRACTIONS DISCIPLINAIRES GRAVES", arts: [
-    { no: "3.1", t: "///", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
-  ]},
+{
+  titre: "Titre III",
+  nom: "INFRACTIONS DISCIPLINAIRES GRAVES",
+  sections: [
+    {
+      nom: "Section 1",
+      arts: [
+        { no: "3.1", t: "///", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
+      ]
+    },
+    {
+      nom: "Section 2",
+      arts: [
+        { no: "3.2", t: "Intitulé de l’infraction", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" }
+      ]
+    }
+  ]
+},
   { titre: "TITRE - IV", nom: "RÉALISATION DE SCÉNARIOS DE CLASSE-K", arts: [
     { no: "4.1", t: "Génocide à échelle mondiale", d: "///", p: "Détention de 1 à 2 jours", a: "500 à 3 000" },
     { no: "4.2", t: "Diffusion à grande échelle d’informations contenant des dangers-sensitifs ou des mémétiques", d: "//", p: "Détention de 1 jour", a: "200 à 1 500" },
@@ -840,15 +861,30 @@ function codeIndex() {
 }
 function codeList(q) {
   q = q.trim().toLowerCase();
+
   var html = CODE.map(function (b, i) {
-    var arts = b.arts.filter(function (a) { return !q || (a.no + " " + a.t + " " + a.d).toLowerCase().indexOf(q) !== -1; });
-    if (!arts.length) return "";
+    var groups = b.sections || [{ nom: "", arts: b.arts || [] }];
+
+    var groupHtml = groups.map(function (g) {
+      var arts = (g.arts || []).filter(function (a) {
+        return !q || (a.no + " " + a.t + " " + a.d).toLowerCase().indexOf(q) !== -1;
+      });
+
+      if (!arts.length) return "";
+
+      return (g.nom ? '<h4 class="section-title">' + esc(g.nom) + '</h4>' : "") +
+        arts.map(function (a) {
+          return '<article class="art"><div class="no"><small>ART.</small>' + esc(a.no) + '</div><div><h4>' + esc(a.t) + '</h4><p>' + esc(a.d) + '</p>' +
+            '<div class="pn"><span><b>Peine</b>' + esc(a.p) + '</span><span><b>Amende</b>' + esc(a.a) + '</span></div></div></article>';
+        }).join("");
+    }).join("");
+
+    if (!groupHtml) return "";
+
     return '<section class="titre-block" id="t' + i + '"><h3 class="h3">' + esc(b.nom) + '<small>' + esc(b.titre) + '</small></h3>' +
-      arts.map(function (a) {
-        return '<article class="art"><div class="no"><small>ART.</small>' + esc(a.no) + '</div><div><h4>' + esc(a.t) + '</h4><p>' + esc(a.d) + '</p>' +
-          '<div class="pn"><span><b>Peine</b>' + esc(a.p) + '</span><span><b>Amende</b>' + esc(a.a) + '</span></div></div></article>';
-      }).join("") + '</section>';
+      groupHtml + '</section>';
   }).join("");
+
   return html || '<p class="empty">Aucun article ne correspond à cette recherche.</p>';
 }
 
