@@ -339,15 +339,57 @@ details.rep.locked .ref { color: var(--ink-2); }
   .services { grid-template-columns: 1fr; padding-top: 0; gap: 2rem; }
   .services::before, .col::before { display: none; }
 }
+.org-tools { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem .9rem; }
+.org-tools .micro { color: var(--ink-2); }
+.org-tools .btn { margin-left: auto; }
+.pips { display: inline-flex; gap: 3px; vertical-align: middle; }
+.pips i { width: 14px; height: 6px; background: var(--paper-rule); }
+.pips i.on { background: var(--ink); }
+.chart { align-items: center; }
+.rank { width: 100%; max-width: 40rem; display: grid; grid-template-columns: 4.4rem minmax(0, 1fr); border: 2px solid var(--ink); background: var(--paper); }
+.rank .lv { background: var(--ink); color: var(--bone); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem; padding: .6rem 0; }
+.rank.top .lv { background: var(--seal-dark); }
+.rank .lv small { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; opacity: .8; }
+.rank .lv b { font-family: var(--f-display); font-weight: 900; font-size: 2.6rem; line-height: .9; }
+.rank .rk { padding: .85rem 1rem 1rem; display: flex; flex-direction: column; gap: .55rem; min-width: 0; }
+.rank .rk h3 { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: 1.5rem; line-height: 1; }
+.rank .rk p { color: var(--ink-2); font-size: .94rem; }
+.widewrap { width: 100%; max-width: 64rem; }
 .plate.svcbox .hd h3 { font-size: 1.5rem; }
-.grades { padding: .3rem 1rem 1rem; gap: 0; }
-.grade { margin-left: calc(var(--i, 0) * 1rem); padding: .7rem 0 .7rem .9rem; border-left: 3px solid var(--paper-rule); display: flex; flex-direction: column; gap: .45rem; min-width: 0; }
-.grade:first-child { border-left-color: var(--seal); }
-.gh { display: flex; justify-content: space-between; align-items: baseline; gap: .8rem; }
+.plate .bd.grades { padding: .5rem 1rem 1rem 2.4rem; gap: 0; position: relative; }
+.grades::before { content: ""; position: absolute; left: 1.1rem; top: 1.45rem; bottom: 1.6rem; width: 2px; background: var(--ink); }
+.grade { position: relative; padding: .8rem 0; display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+.grade + .grade { border-top: 1px dashed var(--paper-rule); }
+.grade::before { content: ""; position: absolute; left: -1.7rem; top: 1.1rem; width: .8rem; height: .8rem; background: var(--paper); border: 2px solid var(--ink); transform: rotate(45deg); }
+.grade:first-child::before { background: var(--seal); border-color: var(--seal-dark); }
+.gh { display: flex; justify-content: space-between; align-items: center; gap: .8rem; }
 .gh b { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: 1.2rem; line-height: 1.05; min-width: 0; }
-.gh .micro { white-space: nowrap; color: var(--ink-2); }
-.grade p { color: var(--ink-2); font-size: .9rem; }
-.grade .accs { font-size: .8rem; }
+.gd { color: var(--ink-2); font-size: .9rem; }
+.svcbox.wide .grades { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 1.6rem; padding: 1rem; }
+.svcbox.wide .grades::before { display: none; }
+.svcbox.wide .grade { border-top: 3px solid var(--ink); padding-top: .8rem; }
+.svcbox.wide .grade + .grade { border-top: 3px solid var(--ink); }
+.svcbox.wide .grade:first-child { border-top-color: var(--seal); }
+.svcbox.wide .grade::before { display: none; }
+.org .members, .chart .members { flex-direction: row; flex-wrap: wrap; gap: .4rem; border-top: 0; }
+.chip { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid var(--paper-rule); background: rgba(255,255,255,.35); padding: .15rem .6rem .15rem .15rem; font-size: .84rem; }
+.chip i { width: 1.5rem; height: 1.5rem; background: var(--ink); color: var(--bone); display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: .9rem; font-style: normal; }
+.chip small { font-family: var(--f-mono); font-size: .66rem; color: var(--ink-2); }
+.vacant { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); opacity: .7; }
+details.droits > summary { cursor: pointer; list-style: none; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); width: fit-content; }
+details.droits > summary::-webkit-details-marker { display: none; }
+details.droits > summary::before { content: "+ "; color: var(--seal-dark); }
+details.droits[open] > summary::before { content: "\\2013 "; }
+details.droits > summary:hover { color: var(--ink); }
+details.droits .accs { margin-top: .5rem; font-size: .82rem; }
+@media (max-width: 920px) {
+  .svcbox.wide .grades { grid-template-columns: 1fr; }
+  .org-tools .btn { margin-left: 0; }
+}
+@media (max-width: 480px) {
+  .rank { grid-template-columns: 3.4rem minmax(0, 1fr); }
+  .rank .lv b { font-size: 2rem; }
+}
 </style>
 
 <style>html { color-scheme: light; } body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }</style>
@@ -439,8 +481,7 @@ var ITER = 100000;
 var SERVICES = [
   { id: "presidence", label: "Présidence Juridique",  block: 1,   top: true, roles: ["presidence"] },
   { id: "cabinet",    label: "Cabinet Présidentiel",  block: 100, top: true, roles: ["sec"] },
-  { id: "direction",  label: "Direction de service",  block: 100, top: true, roles: ["directeur"] },
-  { id: "cours",      label: "Cours Juridique",       block: 100, top: true, roles: ["cours"] },
+  { id: "cours",      label: "Cours Juridique",       block: 100, wide: true, roles: ["cour_pres", "juge", "greffier"] },
   { id: "be",         label: "Bureau d'Enquête",      block: 200, roles: ["be_dir", "be_sup", "be_chef", "be_enq"] },
   { id: "eap",        label: "Équipe d'Application des Peines", block: 300, roles: ["eap_dir", "eap_sup", "eap_chef", "eap_agent"] }
 ];
@@ -448,8 +489,9 @@ var SERVICES = [
 var ROLES = {
   presidence: { label: "Présidence Juridique", service: "presidence", level: 5, desc: "Autorité suprême du Département. Valide le Code pénal, tranche en dernier ressort et administre les comptes." },
   sec: { label: "Cabinet Présidentielle", service: "cabinet", level: 4, desc: "Assure la coordination du Cabinet Présidentiel, le suivi des directives du Président et la gestion des affaires administratives." },
-  directeur:  { label: "Directeur de service", service: "direction", level: 4, desc: "Coordonne le BE et l'EAP, supervise l'ensemble des rapports et consulte le secteur administratif." },
-  cours:      { label: "Cours Juridique", service: "cours", level: 3, desc: "Rend les décisions des Cours, rédige les rapports de jugement et délivre les mandats." },
+  cour_pres:  { label: "Président de la Cour", service: "cours", level: 4, desc: "Préside les audiences, rend les décisions de la Cour et délivre les mandats." },
+  juge:       { label: "Juge", service: "cours", level: 3, desc: "Siège aux audiences, instruit les affaires et rédige les rapports de jugement." },
+  greffier:   { label: "Greffier", service: "cours", level: 2, desc: "Tient les registres de la Cour, consigne les audiences et met en forme les rapports de jugement." },
   be_dir:     { label: "Directeur du Bureau d'Enquête", service: "be", level: 3, desc: "Dirige le Bureau d'Enquête et répond de tous les dossiers du service." },
   be_sup:     { label: "Superviseur d'enquête", service: "be", level: 2, desc: "Encadre les chefs d'enquête et contrôle les dossiers du service." },
   be_chef:    { label: "Chef d'enquête", service: "be", level: 2, desc: "Dirige une équipe d'enquêteurs sur un dossier." },
@@ -459,6 +501,14 @@ var ROLES = {
   eap_chef:   { label: "Chef d'équipe EAP", service: "eap", level: 2, desc: "Commande une équipe sur le terrain pendant un déploiement." },
   eap_agent:  { label: "Agent EAP", service: "eap", level: 1, desc: "Exécute les déploiements et rédige les rapports de déploiement." }
 };
+var ROLE_ORDER = [];
+SERVICES.forEach(function (sv) { sv.roles.forEach(function (r) { ROLE_ORDER.push(r); }); });
+/* Anciens rôles encore présents dans comptes.js : ils sont convertis automatiquement.
+   "directeur" (supprimé) devient Cabinet Présidentielle : changez le rôle dans comptes.js si besoin. */
+var ROLE_ALIAS = { directeur: "sec", cours: "cour_pres", be: "be_enq", eap: "eap_agent" };
+function normRole(r) { return ROLE_ALIAS[r] || r; }
+function rolesOf(id) { return SERVICES.filter(function (x) { return x.id === id; })[0].roles; }
+
 /* Classes des dossiers classifiés : "min" = niveau d'habilitation minimum (de 1 à 5) pour lire un dossier de cette classe.
    La Classe A est la plus confidentielle. */
 var CLASSES = [
@@ -468,20 +518,14 @@ var CLASSES = [
 ];
 function classMin(label) { var c = CLASSES.filter(function (x) { return x.label === label; })[0]; return c ? c.min : 1; }
 function maxClass(level) { var ok = CLASSES.filter(function (c) { return c.min <= level; }); return ok.length ? ok[ok.length - 1].label : "aucune"; }
-var ROLE_ORDER = [];
-SERVICES.forEach(function (sv) { sv.roles.forEach(function (r) { ROLE_ORDER.push(r); }); });
-/* Anciens noms de rôle encore présents dans comptes.js : ils continuent de fonctionner. */
-var ROLE_ALIAS = { be: "be_enq", eap: "eap_agent" };
-function normRole(r) { return ROLE_ALIAS[r] || r; }
-function rolesOf(id) { return SERVICES.filter(function (x) { return x.id === id; })[0].roles; }
-
 /* ---- DROITS D'ACCÈS ----
    read  : qui voit la section
    write : qui rédige (ou gère les comptes pour le Secteur admin)
    del   : qui peut retirer une entrée
    Pour changer les droits d'un grade, ajoutez ou retirez son identifiant dans ces listes. */
-var PRES = ["presidence"], CAB = ["sec"], DIR = ["directeur"], COURS = ["cours"];
-var TOP = PRES.concat(CAB, DIR);
+var PRES = ["presidence"], CAB = ["sec"];
+var TOP = PRES.concat(CAB);
+var JUGES = ["cour_pres", "juge"], COURS = ["cour_pres", "juge", "greffier"];
 var BE = rolesOf("be"), EAP = rolesOf("eap");
 var ALL = ROLE_ORDER.slice();
 var SECTIONS = [
@@ -490,30 +534,30 @@ var SECTIONS = [
   { id: "jugement",    code: "RJ",  label: "Rapport de jugement", sub: "Cours", short: "Jugements",
     read: ALL,
     write: TOP.concat(COURS),
-    del: PRES.concat(DIR) },
+    del: PRES.concat(["cour_pres"]) },
   { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", short: "Enquêtes",
-    read: TOP.concat(COURS, BE, ["eap_dir"]),
+    read: TOP.concat(JUGES, BE, ["eap_dir"]),
     write: TOP.concat(BE),
-    del: PRES.concat(DIR, ["be_dir", "be_sup"]) },
+    del: PRES.concat(["be_dir", "be_sup"]) },
   { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", short: "Déploiements",
-    read: TOP.concat(COURS, EAP, ["be_dir"]),
+    read: TOP.concat(JUGES, EAP, ["be_dir"]),
     write: TOP.concat(EAP),
-    del: PRES.concat(DIR, ["eap_dir", "eap_sup"]) },
+    del: PRES.concat(["eap_dir", "eap_sup"]) },
   { id: "mandats",     code: "MND", label: "Mandats", sub: "", short: "Mandats",
     read: TOP.concat(COURS, ["be_dir", "be_sup", "be_chef", "eap_dir", "eap_sup", "eap_chef"]),
-    write: TOP.concat(COURS, ["be_dir", "be_sup"]),
-    del: PRES.concat(DIR) },
+    write: TOP.concat(JUGES, ["be_dir", "be_sup"]),
+    del: PRES.concat(["cour_pres"]) },
   { id: "preuves",     code: "PCV", label: "Pièces à conviction", sub: "BE", short: "Preuves",
-    read: TOP.concat(COURS, BE, ["eap_dir", "eap_sup"]),
+    read: TOP.concat(JUGES, BE, ["eap_dir", "eap_sup"]),
     write: TOP.concat(BE),
-    del: PRES.concat(DIR, ["be_dir"]) },
+    del: PRES.concat(["be_dir"]) },
   { id: "classifies",  code: "DCL", label: "Dossiers classifiés", sub: "Classes A · B · C", short: "Classifiés",
     read: ALL,
     write: TOP,
     del: PRES },
   { id: "hierarchie",  code: "HIE", label: "Hiérarchie", sub: "", read: ALL, write: [], del: [] },
   { id: "admin",       code: "ADM", label: "Secteur admin", sub: "", short: "Comptes",
-    read: ["presidence", "directeur", "sec"],
+    read: ["presidence", "sec"],
     write: ["presidence"],
     del: [] }
 ];
@@ -1108,6 +1152,7 @@ function fillReports(key) {
 }
 
 /* Hiérarchie */
+function pips(n) { var h = ""; for (var i = 1; i <= 5; i++) h += '<i class="' + (i <= n ? "on" : "") + '"></i>'; return '<span class="pips" role="img" aria-label="Niveau ' + n + ' sur 5">' + h + '</span>'; }
 function hierarchyView() {
   function label(x, role) { return x.id === "classifies" ? x.short + " (jusqu'à " + maxClass(ROLES[role].level) + ")" : x.short; }
   function accessBlock(role) {
@@ -1118,34 +1163,38 @@ function hierarchyView() {
       ["Lit", SECTIONS.filter(function (x) { return x.short && has(x.read) && !has(x.write); }), ""],
       ["Sans accès", SECTIONS.filter(function (x) { return x.short && !has(x.read); }), "n"]
     ].filter(function (r) { return r[1].length; });
-    return '<dl class="accs">' + rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd class="' + r[2] + '">' + esc(r[1].map(function (x) { return label(x, role); }).join(", ")) + '</dd>'; }).join("") + '</dl>';
+    return '<details class="droits"><summary>Droits d\'accès</summary><dl class="accs">' + rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd class="' + r[2] + '">' + esc(r[1].map(function (x) { return label(x, role); }).join(", ")) + '</dd>'; }).join("") + '</dl></details>';
   }
-  function plate(role, cls) {
+  function rank(role, i) {
     var r = ROLES[role];
-    return '<div class="plate ' + (cls || "") + '"><div class="hd"><h3>' + esc(r.label) + '</h3><span class="micro">Niveau ' + r.level + '</span></div>' +
-      '<div class="bd"><p>' + esc(r.desc) + '</p>' + accessBlock(role) + '<div class="members" id="mem-' + role + '"></div></div></div>';
+    return '<div class="rank' + (i === 0 ? " top" : "") + '"><div class="lv"><small>Niv.</small><b>' + r.level + '</b></div>' +
+      '<div class="rk"><h3>' + esc(r.label) + '</h3><p>' + esc(r.desc) + '</p><div class="members" id="mem-' + role + '"></div>' + accessBlock(role) + '</div></div>';
   }
-  function gradeRow(role, i) {
+  function gradeRow(role) {
     var r = ROLES[role];
-    return '<div class="grade" style="--i:' + i + '"><div class="gh"><b>' + esc(r.label) + '</b><span class="micro">Niveau ' + r.level + '</span></div><p>' + esc(r.desc) + '</p>' + accessBlock(role) + '<div class="members" id="mem-' + role + '"></div></div>';
+    return '<div class="grade"><div class="gh"><b>' + esc(r.label) + '</b>' + pips(r.level) + '</div><p class="gd">' + esc(r.desc) + '</p><div class="members" id="mem-' + role + '"></div>' + accessBlock(role) + '</div>';
   }
-  var tops = [];
-  SERVICES.filter(function (sv) { return sv.top; }).forEach(function (sv) { sv.roles.forEach(function (r) { tops.push(r); }); });
-  var chain = tops.map(function (r, i) { return (i ? '<div class="stem"></div>' : "") + plate(r, i === 0 ? "top" : ""); }).join("");
-  var svcs = SERVICES.filter(function (sv) { return !sv.top; });
-  var cols = svcs.map(function (sv) {
-    return '<div class="col"><div class="plate svcbox"><div class="hd"><h3>' + esc(sv.label) + '</h3><span class="micro">' + sv.roles.length + ' grades</span></div>' +
-      '<div class="bd grades">' + sv.roles.map(gradeRow).join("") + '</div></div></div>';
-  }).join("");
-  return head("Organisation", "Hiérarchie", "Chaîne de commandement du Département de Justice. Chaque grade indique ce qu'il rédige, retire, lit ou ne voit pas.") +
-    '<div class="chart"><div class="topchain">' + chain + '</div><div class="stem"></div><div class="services" style="--n:' + svcs.length + '">' + cols + '</div></div>';
+  function box(sv) {
+    return '<div class="plate svcbox' + (sv.wide ? " wide" : "") + '"><div class="hd"><h3>' + esc(sv.label) + '</h3><span class="micro">' + sv.roles.length + ' grades</span></div>' +
+      '<div class="bd grades">' + sv.roles.map(gradeRow).join("") + '</div></div>';
+  }
+  var ranks = [];
+  SERVICES.filter(function (sv) { return sv.top; }).forEach(function (sv) { sv.roles.forEach(function (r) { ranks.push(r); }); });
+  var parts = ranks.map(function (r, i) { return (i ? '<div class="stem"></div>' : "") + rank(r, i); }).join("");
+  SERVICES.filter(function (sv) { return sv.wide; }).forEach(function (sv) { parts += '<div class="stem"></div><div class="widewrap">' + box(sv) + '</div>'; });
+  var cols = SERVICES.filter(function (sv) { return !sv.top && !sv.wide; });
+  parts += '<div class="stem"></div><div class="services" style="--n:' + cols.length + '">' + cols.map(function (sv) { return '<div class="col">' + box(sv) + '</div>'; }).join("") + '</div>';
+  return head("Organisation", "Hiérarchie", "Chaîne de commandement du Département de Justice, de la Présidence Juridique aux services. Chaque grade indique ses droits d'accès.") +
+    '<div class="org-tools"><span class="micro">Niveau d\'habilitation</span>' + pips(1) + '<span class="micro">à</span>' + pips(5) +
+    '<button class="btn line sm" id="toggleDroits" type="button" data-open="0">Afficher tous les droits</button></div>' +
+    '<div class="chart">' + parts + '</div>';
 }
 function fillHierarchy() {
   ROLE_ORDER.forEach(function (role) {
     var box = $("#mem-" + role); if (!box) return;
     var list = accounts.filter(function (a) { return a.role === role && a.actif !== false; }).sort(function (a, b) { return a.id < b.id ? -1 : 1; });
-    if (!list.length) { box.innerHTML = '<div class="mem"><span class="fine">' + (ready.accounts ? "Aucun agent affecté" : "Chargement…") + '</span></div>'; return; }
-    box.innerHTML = list.map(function (a) { return '<div class="mem"><span>' + esc(a.nom || a.id) + '</span><span>' + esc(a.id) + '</span></div>'; }).join("");
+    if (!list.length) { box.innerHTML = '<span class="vacant">' + (ready.accounts ? "Poste vacant" : "Chargement…") + '</span>'; return; }
+    box.innerHTML = list.map(function (a) { var n = a.nom || a.id; return '<span class="chip"><i>' + esc(String(n).trim().charAt(0).toUpperCase()) + '</i>' + esc(n) + '<small>' + esc(a.id) + '</small></span>'; }).join("");
   });
 }
 
@@ -1312,6 +1361,12 @@ function showHandover(id, nom, pw, what) {
 }
 
 function bindView() {
+  var td = $("#toggleDroits");
+  if (td) td.addEventListener("click", function () {
+    var open = td.getAttribute("data-open") !== "1";
+    document.querySelectorAll("details.droits").forEach(function (d) { d.open = open; });
+    td.setAttribute("data-open", open ? "1" : "0"); td.textContent = open ? "Masquer les droits" : "Afficher tous les droits";
+  });
   var q = $("#q");
   if (q) q.addEventListener("input", function () { $("#codeList").innerHTML = codeList(q.value); });
   var idx = $("#codeIndex");
