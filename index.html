@@ -339,12 +339,18 @@ details.rep.locked .ref { color: var(--ink-2); }
   .services { grid-template-columns: 1fr; padding-top: 0; gap: 2rem; }
   .services::before, .col::before { display: none; }
 }
+.plate.svcbox .hd h3 { font-size: 1.5rem; }
+.grades { padding: .3rem 1rem 1rem; gap: 0; }
+.grade { margin-left: calc(var(--i, 0) * 1rem); padding: .7rem 0 .7rem .9rem; border-left: 3px solid var(--paper-rule); display: flex; flex-direction: column; gap: .45rem; min-width: 0; }
+.grade:first-child { border-left-color: var(--seal); }
+.gh { display: flex; justify-content: space-between; align-items: baseline; gap: .8rem; }
+.gh b { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: 1.2rem; line-height: 1.05; min-width: 0; }
+.gh .micro { white-space: nowrap; color: var(--ink-2); }
+.grade p { color: var(--ink-2); font-size: .9rem; }
+.grade .accs { font-size: .8rem; }
 </style>
 
-<style>html { color-scheme: light; } body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }.col .plate .hd { flex-wrap: nowrap; align-items: flex-start; }
-.col .plate .hd h3 { font-size: 1.2rem; line-height: 1.05; min-width: 0; }
-.col .plate .hd .micro { white-space: nowrap; padding-top: .2rem; }
-</style>
+<style>html { color-scheme: light; } body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }</style>
 </head>
 <body>
 <div class="wrap">
@@ -434,23 +440,34 @@ var SERVICES = [
   { id: "presidence", label: "Présidence Juridique",  block: 1,   top: true, roles: ["presidence"] },
   { id: "cabinet",    label: "Cabinet Présidentiel",  block: 100, top: true, roles: ["sec"] },
   { id: "direction",  label: "Direction de service",  block: 100, top: true, roles: ["directeur"] },
+  { id: "cours",      label: "Cours Juridique",       block: 100, top: true, roles: ["cours"] },
   { id: "be",         label: "Bureau d'Enquête",      block: 200, roles: ["be_dir", "be_sup", "be_chef", "be_enq"] },
   { id: "eap",        label: "Équipe d'Application des Peines", block: 300, roles: ["eap_dir", "eap_sup", "eap_chef", "eap_agent"] }
 ];
 /* Chaque grade : nom affiché, service, niveau d'habilitation (1 à 6), description. */
 var ROLES = {
-  presidence: { label: "Présidence Juridique", service: "presidence", level: 6, desc: "Autorité suprême du Département. Valide le Code pénal, tranche en dernier ressort et administre les comptes." },
-  sec: { label: "Cabinet Présidentielle", service: "cabinet", level: 5, desc: "Assure la coordination du Cabinet Présidentiel, le suivi des directives du Président et la gestion des affaires administratives." },
-  directeur:  { label: "Directeur de service", service: "direction", level: 5, desc: "Coordonne le BE et l'EAP, supervise l'ensemble des rapports et consulte le secteur administratif." },
-  be_dir:     { label: "Directeur du Bureau d'Enquête", service: "be", level: 4, desc: "Dirige le Bureau d'Enquête et répond de tous les dossiers du service." },
-  be_sup:     { label: "Superviseur d'enquête", service: "be", level: 3, desc: "Encadre les chefs d'enquête et contrôle les dossiers du service." },
+  presidence: { label: "Présidence Juridique", service: "presidence", level: 5, desc: "Autorité suprême du Département. Valide le Code pénal, tranche en dernier ressort et administre les comptes." },
+  sec: { label: "Cabinet Présidentielle", service: "cabinet", level: 4, desc: "Assure la coordination du Cabinet Présidentiel, le suivi des directives du Président et la gestion des affaires administratives." },
+  directeur:  { label: "Directeur de service", service: "direction", level: 4, desc: "Coordonne le BE et l'EAP, supervise l'ensemble des rapports et consulte le secteur administratif." },
+  cours:      { label: "Cours Juridique", service: "cours", level: 3, desc: "Rend les décisions des Cours, rédige les rapports de jugement et délivre les mandats." },
+  be_dir:     { label: "Directeur du Bureau d'Enquête", service: "be", level: 3, desc: "Dirige le Bureau d'Enquête et répond de tous les dossiers du service." },
+  be_sup:     { label: "Superviseur d'enquête", service: "be", level: 2, desc: "Encadre les chefs d'enquête et contrôle les dossiers du service." },
   be_chef:    { label: "Chef d'enquête", service: "be", level: 2, desc: "Dirige une équipe d'enquêteurs sur un dossier." },
   be_enq:     { label: "Enquêteur", service: "be", level: 1, desc: "Mène les investigations et rédige les rapports d'enquêtes." },
-  eap_dir:    { label: "Directeur de l'EAP", service: "eap", level: 4, desc: "Dirige l'Équipe d'Application des Peines et répond de tous les déploiements." },
-  eap_sup:    { label: "Superviseur de l'EAP", service: "eap", level: 3, desc: "Encadre les chefs d'équipe et planifie les déploiements." },
+  eap_dir:    { label: "Directeur de l'EAP", service: "eap", level: 3, desc: "Dirige l'Équipe d'Application des Peines et répond de tous les déploiements." },
+  eap_sup:    { label: "Superviseur de l'EAP", service: "eap", level: 2, desc: "Encadre les chefs d'équipe et planifie les déploiements." },
   eap_chef:   { label: "Chef d'équipe EAP", service: "eap", level: 2, desc: "Commande une équipe sur le terrain pendant un déploiement." },
   eap_agent:  { label: "Agent EAP", service: "eap", level: 1, desc: "Exécute les déploiements et rédige les rapports de déploiement." }
 };
+/* Classes des dossiers classifiés : "min" = niveau d'habilitation minimum (de 1 à 5) pour lire un dossier de cette classe.
+   La Classe A est la plus confidentielle. */
+var CLASSES = [
+  { label: "Classe C", min: 1 },
+  { label: "Classe B", min: 2 },
+  { label: "Classe A", min: 4 }
+];
+function classMin(label) { var c = CLASSES.filter(function (x) { return x.label === label; })[0]; return c ? c.min : 1; }
+function maxClass(level) { var ok = CLASSES.filter(function (c) { return c.min <= level; }); return ok.length ? ok[ok.length - 1].label : "aucune"; }
 var ROLE_ORDER = [];
 SERVICES.forEach(function (sv) { sv.roles.forEach(function (r) { ROLE_ORDER.push(r); }); });
 /* Anciens noms de rôle encore présents dans comptes.js : ils continuent de fonctionner. */
@@ -463,7 +480,7 @@ function rolesOf(id) { return SERVICES.filter(function (x) { return x.id === id;
    write : qui rédige (ou gère les comptes pour le Secteur admin)
    del   : qui peut retirer une entrée
    Pour changer les droits d'un grade, ajoutez ou retirez son identifiant dans ces listes. */
-var PRES = ["presidence"], CAB = ["sec"], DIR = ["directeur"];
+var PRES = ["presidence"], CAB = ["sec"], DIR = ["directeur"], COURS = ["cours"];
 var TOP = PRES.concat(CAB, DIR);
 var BE = rolesOf("be"), EAP = rolesOf("eap");
 var ALL = ROLE_ORDER.slice();
@@ -472,25 +489,25 @@ var SECTIONS = [
   { id: "code",        code: "CP",  label: "Code pénal", sub: "", read: ALL, write: [], del: [] },
   { id: "jugement",    code: "RJ",  label: "Rapport de jugement", sub: "Cours", short: "Jugements",
     read: ALL,
-    write: TOP,
+    write: TOP.concat(COURS),
     del: PRES.concat(DIR) },
   { id: "enquetes",    code: "RE",  label: "Rapport d'enquêtes", sub: "BE", short: "Enquêtes",
-    read: TOP.concat(BE, ["eap_dir"]),
+    read: TOP.concat(COURS, BE, ["eap_dir"]),
     write: TOP.concat(BE),
     del: PRES.concat(DIR, ["be_dir", "be_sup"]) },
   { id: "deploiement", code: "RD",  label: "Rapport de déploiement", sub: "EAP", short: "Déploiements",
-    read: TOP.concat(EAP, ["be_dir"]),
+    read: TOP.concat(COURS, EAP, ["be_dir"]),
     write: TOP.concat(EAP),
     del: PRES.concat(DIR, ["eap_dir", "eap_sup"]) },
   { id: "mandats",     code: "MND", label: "Mandats", sub: "", short: "Mandats",
-    read: TOP.concat(["be_dir", "be_sup", "be_chef", "eap_dir", "eap_sup", "eap_chef"]),
-    write: TOP.concat(["be_dir", "be_sup"]),
+    read: TOP.concat(COURS, ["be_dir", "be_sup", "be_chef", "eap_dir", "eap_sup", "eap_chef"]),
+    write: TOP.concat(COURS, ["be_dir", "be_sup"]),
     del: PRES.concat(DIR) },
   { id: "preuves",     code: "PCV", label: "Pièces à conviction", sub: "BE", short: "Preuves",
-    read: TOP.concat(BE, ["eap_dir", "eap_sup"]),
+    read: TOP.concat(COURS, BE, ["eap_dir", "eap_sup"]),
     write: TOP.concat(BE),
     del: PRES.concat(DIR, ["be_dir"]) },
-  { id: "classifies",  code: "DCL", label: "Dossiers classifiés", sub: "Habilitation", short: "Classifiés",
+  { id: "classifies",  code: "DCL", label: "Dossiers classifiés", sub: "Classes A · B · C", short: "Classifiés",
     read: ALL,
     write: TOP,
     del: PRES },
@@ -617,10 +634,10 @@ var REPORT_META = {
                  nouveau: "Nouvelle pièce", enreg: "Enregistrer la pièce", retirer: "Retirer cette pièce", vide: "Aucune pièce enregistrée.", resumeLabel: "Description",
                  extra: [ { id: "dossier", label: "Dossier lié (réf.)", placeholder: "BE-0207" },
                           { id: "lieu", label: "Lieu de conservation" } ] },
-  classifies:  { title: "Dossiers classifiés", sub: "Habilitation", prefix: "DC", lead: "Dossiers à diffusion restreinte. Le contenu n'apparaît qu'aux grades dont le niveau d'habilitation atteint le niveau requis.", statuts: ["Ouvert", "Archivé", "Déclassifié"],
+  classifies:  { title: "Dossiers classifiés", sub: "Classification", prefix: "DC", lead: "Dossiers à diffusion restreinte. Le contenu n'apparaît qu'aux grades dont l'habilitation atteint la classe du dossier.", statuts: ["Ouvert", "Archivé", "Déclassifié"],
                  nouveau: "Nouveau dossier", enreg: "Enregistrer le dossier", retirer: "Retirer ce dossier", vide: "Aucun dossier enregistré.", resumeLabel: "Contenu du dossier",
-                 note: "Le niveau requis masque le contenu aux grades inférieurs. Les niveaux vont de N1 (Enquêteur, Agent EAP) à N6 (Présidence Juridique).",
-                 extra: [ { id: "niveau", label: "Niveau requis", options: ["1", "2", "3", "4", "5", "6"], gate: true } ] }
+                 note: CLASSES.slice().reverse().map(function (c) { return c.label + " : habilitation N" + c.min + " et plus"; }).join(" · ") + ". Un grade inférieur voit seulement la référence du dossier.",
+                 extra: [ { id: "classe", label: "Classe", options: CLASSES.map(function (c) { return c.label; }), gate: true } ] }
 };
 var STAMP = { "Délivré": "ok", "Exécuté": "ok", "En attente": "warn", "Expiré": "neutral", "Révoqué": "seal", "Collectée": "neutral", "En analyse": "warn", "Scellée": "ok", "Restituée": "neutral", "Détruite": "seal", "Ouvert": "warn", "Archivé": "neutral", "Déclassifié": "ok", "Rendu": "ok", "Clôturée": "ok", "Terminé": "ok", "En délibéré": "warn", "En cours": "warn", "Planifié": "neutral", "Ouverte": "neutral", "Appel": "seal" };
 
@@ -940,7 +957,7 @@ function deniedView() {
 /* Accueil */
 function homeView() {
   var role = ROLES[me.role];
-  var meter = ""; for (var i = 1; i <= 6; i++) meter += '<i class="' + (i <= role.level ? "on" : "") + '"></i>';
+  var meter = ""; for (var i = 1; i <= 5; i++) meter += '<i class="' + (i <= role.level ? "on" : "") + '"></i>';
   var initial = (me.nom || "?").trim().charAt(0).toUpperCase();
   var acc = SECTIONS.filter(function (s) { return s.id !== "accueil"; }).map(function (s) {
     var r = can(s.id, "read"), w = can(s.id, "write");
@@ -952,7 +969,7 @@ function homeView() {
         '<div class="top"><div class="org micro">Fondation S.C.P.F<br>Dépt. de Justice</div><div>' + emblem(54) + '</div></div>' +
         '<div class="row"><div class="avatar">' + esc(initial) + '</div><div><div class="nm">' + esc(me.nom) + '</div><div class="rl micro">' + esc(role.label) + '</div></div></div>' +
         '<dl class="kvs"><dt class="micro">Matricule</dt><dd class="mono">' + esc(me.id) + '</dd>' +
-        '<dt class="micro">Habilitation</dt><dd><span class="meter" aria-label="Niveau ' + role.level + ' sur 6">' + meter + '</span> <span class="mono">N' + role.level + '</span></dd>' +
+        '<dt class="micro">Habilitation</dt><dd><span class="meter" aria-label="Niveau ' + role.level + ' sur 5">' + meter + '</span> <span class="mono">N' + role.level + '</span></dd>' +
         '<dt class="micro">Service</dt><dd>' + esc(serviceLabel(me.role)) + '</dd>' +
         '<dt class="micro">Site</dt><dd>Astrea · Installation - 73</dd></dl>' +
         '<div class="barcode">' + barcode(me.id) + '</div></div>' +
@@ -1022,9 +1039,8 @@ function codeList(q) {
 
 /* Rapports, mandats, pièces à conviction, dossiers classifiés */
 function needLevel(key, r) {
-  var m = REPORT_META[key];
-  if (!m.extra || !m.extra.some(function (f) { return f.gate; })) return 0;
-  return parseInt(r.niveau, 10) || 1;
+  var m = REPORT_META[key], g = (m.extra || []).filter(function (f) { return f.gate; })[0];
+  return g ? classMin(r[g.id]) : 0;
 }
 function isLocked(key, r) { var n = needLevel(key, r); return n > 0 && (!me || !ROLES[me.role] || ROLES[me.role].level < n); }
 function extraField(f) {
@@ -1037,7 +1053,7 @@ function extraField(f) {
 function extraMeta(m, r) {
   return (m.extra || []).map(function (f) {
     var v = r[f.id]; if (!v) return "";
-    if (f.gate) return '<span>Niveau requis : N' + esc(v) + '</span>';
+    if (f.gate) return '<span>' + esc(v) + '</span>';
     return '<span>' + esc(f.label) + ' : ' + esc(f.date ? fmtDate(v) : v) + '</span>';
   }).join("");
 }
@@ -1078,8 +1094,8 @@ function fillReports(key) {
       var need = needLevel(key, r);
       return '<details class="rep locked" data-ref="' + esc(ref) + '"' + (open[ref] ? " open" : "") + '><summary><span class="ref">' + esc(ref) + '</span>' +
         '<span class="t">██████ ████████' + tag + '</span>' +
-        '<span class="stamp seal">N' + need + ' requis</span></summary>' +
-        '<div class="body"><p>Contenu masqué. Ce dossier demande une habilitation de niveau N' + need + '. La vôtre est N' + ROLES[me.role].level + '.</p></div></details>';
+        '<span class="stamp seal">' + esc(r.classe || "") + '</span></summary>' +
+        '<div class="body"><p>Contenu masqué. Ce dossier est classé ' + esc(r.classe || "") + ' (habilitation N' + need + ' minimum). Votre habilitation est N' + ROLES[me.role].level + ', avec un accès jusqu\'à la ' + esc(maxClass(ROLES[me.role].level)) + '.</p></div></details>';
     }
     return '<details class="rep" data-ref="' + esc(ref) + '"' + (open[ref] ? " open" : "") + '><summary><span class="ref">' + esc(ref) + '</span>' +
       '<span class="t">' + esc(r.titre) + tag + '</span>' +
@@ -1093,7 +1109,7 @@ function fillReports(key) {
 
 /* Hiérarchie */
 function hierarchyView() {
-  function label(x, role) { return x.id === "classifies" ? x.short + " (jusqu'à N" + ROLES[role].level + ")" : x.short; }
+  function label(x, role) { return x.id === "classifies" ? x.short + " (jusqu'à " + maxClass(ROLES[role].level) + ")" : x.short; }
   function accessBlock(role) {
     var has = function (arr) { return arr.indexOf(role) !== -1; };
     var rows = [
@@ -1109,13 +1125,17 @@ function hierarchyView() {
     return '<div class="plate ' + (cls || "") + '"><div class="hd"><h3>' + esc(r.label) + '</h3><span class="micro">Niveau ' + r.level + '</span></div>' +
       '<div class="bd"><p>' + esc(r.desc) + '</p>' + accessBlock(role) + '<div class="members" id="mem-' + role + '"></div></div></div>';
   }
+  function gradeRow(role, i) {
+    var r = ROLES[role];
+    return '<div class="grade" style="--i:' + i + '"><div class="gh"><b>' + esc(r.label) + '</b><span class="micro">Niveau ' + r.level + '</span></div><p>' + esc(r.desc) + '</p>' + accessBlock(role) + '<div class="members" id="mem-' + role + '"></div></div>';
+  }
   var tops = [];
   SERVICES.filter(function (sv) { return sv.top; }).forEach(function (sv) { sv.roles.forEach(function (r) { tops.push(r); }); });
   var chain = tops.map(function (r, i) { return (i ? '<div class="stem"></div>' : "") + plate(r, i === 0 ? "top" : ""); }).join("");
   var svcs = SERVICES.filter(function (sv) { return !sv.top; });
   var cols = svcs.map(function (sv) {
-    return '<div class="col"><div class="svc-h">' + esc(sv.label) + '</div>' +
-      sv.roles.map(function (r) { return '<div class="stem"></div>' + plate(r); }).join("") + '</div>';
+    return '<div class="col"><div class="plate svcbox"><div class="hd"><h3>' + esc(sv.label) + '</h3><span class="micro">' + sv.roles.length + ' grades</span></div>' +
+      '<div class="bd grades">' + sv.roles.map(gradeRow).join("") + '</div></div></div>';
   }).join("");
   return head("Organisation", "Hiérarchie", "Chaîne de commandement du Département de Justice. Chaque grade indique ce qu'il rédige, retire, lit ou ne voit pas.") +
     '<div class="chart"><div class="topchain">' + chain + '</div><div class="stem"></div><div class="services" style="--n:' + svcs.length + '">' + cols + '</div></div>';
@@ -1205,7 +1225,7 @@ function adminView() {
           var rd = x.read.indexOf(r) !== -1, w = x.write.indexOf(r) !== -1, d = x.del.indexOf(r) !== -1;
           if (w) return '<td class="cell-rw">' + (x.id === "admin" ? "Gère" : "Rédige" + (d ? " + retire" : "")) + '</td>';
           if (!rd) return '<td class="cell-n">Aucun</td>';
-          return '<td>' + (x.id === "classifies" ? "Lecture jusqu'à N" + ROLES[r].level : "Lecture") + '</td>';
+          return '<td>' + (x.id === "classifies" ? "Lecture jusqu'à " + maxClass(ROLES[r].level) : "Lecture") + '</td>';
         }).join("") + '</tr>';
       }).join("");
     }).join("") + '</tbody></table></div>';
