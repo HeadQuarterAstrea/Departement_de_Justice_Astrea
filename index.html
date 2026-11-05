@@ -492,14 +492,14 @@ var ROLES = {
   cour_pres:  { label: "Président de la Cour", service: "cours", level: 4, desc: "Préside les audiences, rend les décisions de la Cour et délivre les mandats." },
   juge:       { label: "Juge", service: "cours", level: 3, desc: "Siège aux audiences, instruit les affaires et rédige les rapports de jugement." },
   greffier:   { label: "Greffier", service: "cours", level: 2, desc: "Tient les registres de la Cour, consigne les audiences et met en forme les rapports de jugement." },
-  be_dir:     { label: "Directeur du Bureau d'Enquête", service: "be", level: 3, desc: "Dirige le Bureau d'Enquête et répond de tous les dossiers du service." },
-  be_sup:     { label: "Superviseur d'enquête", service: "be", level: 2, desc: "Encadre les chefs d'enquête et contrôle les dossiers du service." },
-  be_chef:    { label: "Chef d'enquête", service: "be", level: 2, desc: "Dirige une équipe d'enquêteurs sur un dossier." },
-  be_enq:     { label: "Enquêteur", service: "be", level: 1, desc: "Mène les investigations et rédige les rapports d'enquêtes." },
-  eap_dir:    { label: "Directeur de l'EAP", service: "eap", level: 3, desc: "Dirige l'Équipe d'Application des Peines et répond de tous les déploiements." },
-  eap_sup:    { label: "Superviseur de l'EAP", service: "eap", level: 2, desc: "Encadre les chefs d'équipe et planifie les déploiements." },
-  eap_chef:   { label: "Chef d'équipe EAP", service: "eap", level: 2, desc: "Commande une équipe sur le terrain pendant un déploiement." },
-  eap_agent:  { label: "Agent EAP", service: "eap", level: 1, desc: "Exécute les déploiements et rédige les rapports de déploiement." }
+  be_dir:     { label: "Directeur du Bureau d'Enquête", service: "be", level: 4, desc: "Dirige le Bureau d'Enquête et répond de tous les dossiers du service." },
+  be_sup:     { label: "Superviseur d'enquête", service: "be", level: 4, desc: "Encadre les chefs d'enquête et contrôle les dossiers du service." },
+  be_chef:    { label: "Chef d'enquête", service: "be", level: 3, desc: "Dirige une équipe d'enquêteurs sur un dossier." },
+  be_enq:     { label: "Enquêteur", service: "be", level: 3, desc: "Mène les investigations et rédige les rapports d'enquêtes." },
+  eap_dir:    { label: "Directeur de l'EAP", service: "eap", level: 4, desc: "Dirige l'Équipe d'Application des Peines et répond de tous les déploiements." },
+  eap_sup:    { label: "Superviseur de l'EAP", service: "eap", level: 4, desc: "Encadre les chefs d'équipe et planifie les déploiements." },
+  eap_chef:   { label: "Chef d'équipe EAP", service: "eap", level: 3, desc: "Commande une équipe sur le terrain pendant un déploiement." },
+  eap_agent:  { label: "Agent EAP", service: "eap", level: 2, desc: "Exécute les déploiements et rédige les rapports de déploiement." }
 };
 var ROLE_ORDER = [];
 SERVICES.forEach(function (sv) { sv.roles.forEach(function (r) { ROLE_ORDER.push(r); }); });
