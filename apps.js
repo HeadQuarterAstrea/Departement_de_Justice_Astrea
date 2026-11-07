@@ -17,6 +17,8 @@
     trashFull: svg('<path d="M18 20h28l-3 38H21z" fill="#8a949c"/><rect x="14" y="14" width="36" height="6" rx="2" fill="#aab3ba"/><rect x="26" y="8" width="12" height="6" rx="2" fill="#aab3ba"/><path d="M20 16l8-8 6 5 7-7 5 10z" fill="#f2efe3"/><g stroke="#5b646b" stroke-width="2.5"><path d="M26 26v26M32 26v26M38 26v26"/></g>'),
     calc: svg('<rect x="10" y="4" width="44" height="56" rx="4" fill="#2b3239"/><rect x="15" y="9" width="34" height="12" fill="#9fd1b5"/><g fill="#d9dde0"><rect x="15" y="27" width="9" height="8"/><rect x="27.500" y="27" width="9" height="8"/><rect x="40" y="27" width="9" height="8"/><rect x="15" y="39" width="9" height="8"/><rect x="27.500" y="39" width="9" height="8"/><rect x="40" y="39" width="9" height="8" fill="#c2352b"/><rect x="15" y="51" width="9" height="6"/><rect x="27.500" y="51" width="9" height="6"/><rect x="40" y="51" width="9" height="6"/></g>'),
     set: svg('<circle cx="32" cy="32" r="30" fill="#2b3239"/><g fill="none" stroke="#e9e6dd" stroke-width="5"><circle cx="32" cy="32" r="9"/><path d="M32 10v8M32 46v8M10 32h8M46 32h8M16.500 16.500l5.500 5.500M42 42l5.500 5.500M16.500 47.500l5.500-5.500M42 22l5.500-5.500"/></g>'),
+    msg: svg('<circle cx="32" cy="32" r="30" fill="#4a2d97"/><path d="M14 18a5 5 0 0 1 5-5h26a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H29l-9 8v-8h-1a5 5 0 0 1-5-5z" fill="#f2eaff"/><g fill="#7c4ddb"><circle cx="24" cy="27" r="2.6"/><circle cx="32" cy="27" r="2.6"/><circle cx="40" cy="27" r="2.6"/></g>'),
+    users: svg('<circle cx="32" cy="32" r="30" fill="#2b3239"/><g fill="#e9e6dd"><circle cx="25" cy="25" r="7"/><path d="M11 49a14 12 0 0 1 28 0z"/><circle cx="42" cy="27" r="6" opacity=".7"/><path d="M36 49a12 10 0 0 1 20 0z" opacity=".7"/></g>'),
     folder: svg('<path d="M4 14h20l5 6h31v34a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#f0c25f"/>'),
     file: svg('<path d="M14 4h26l12 12v44H14z" fill="#f2efe3"/><path d="M40 4v12h12z" fill="#c9c3ad"/><g stroke="#8a918d" stroke-width="2"><path d="M20 28h26M20 35h26M20 42h18"/></g>')
   };
@@ -208,14 +210,15 @@
   } };
 
   /* ===== Paramètres ===== */
-  var WALLS = { nuit: ["Nuit", "radial-gradient(90% 70% at 15% 0,#1a2630 0,transparent 60%),radial-gradient(80% 70% at 100% 100%,#2a1518 0,transparent 55%),#0b0e11"],
+  var WALLS = { violet: ["Violet", "linear-gradient(180deg,#27094f 0%,#1c0a3a 50%,#120a1f 100%)"],
+    nuit: ["Nuit", "radial-gradient(90% 70% at 15% 0,#1a2630 0,transparent 60%),radial-gradient(80% 70% at 100% 100%,#2a1518 0,transparent 55%),#0b0e11"],
     acier: ["Acier", "radial-gradient(90% 70% at 80% 0,#2c3a46 0,transparent 65%),#10161b"],
     justice: ["Justice", "radial-gradient(90% 70% at 20% 0,#3a1a1c 0,transparent 60%),#0e1114"],
     ethos: ["Éthique", "radial-gradient(90% 70% at 20% 0,#3b4630 0,transparent 60%),#232a1e"],
     nocturne: ["Nocturnis", "radial-gradient(90% 70% at 50% 0,#222a68 0,transparent 65%),#080c1c"],
     noir: ["Noir", "#050607"] };
   SYS.set = { nom: "Paramètres", icone: ICONS.set, open: function (pane, arg, ctx) {
-    var S = ctx.session, key = "pcset:" + S.id, cur = jget(key, {}).fond || "nuit";
+    var S = ctx.session, key = "pcset:" + S.id, cur = jget(key, {}).fond || "violet";
     pane.innerHTML = '<div class="sy"><div class="stg"><h3>Fond d\'écran</h3><div class="walls"></div><h3>Session</h3><div class="kv"><span>Nom</span><span>' + esc(S.nom) + "</span><span>Matricule</span><span>" + esc(S.id) + "</span><span>Grade</span><span>" + esc(S.gradeLabel || "—") + "</span><span>Niveau</span><span>" + esc(S.niveau || 1) + "</span><span>Accès</span><span>" + (S.apps.map(function (a) { return a === "justice" ? "ACCÈS JUSTICE" : a === "ethique" ? "ACCÈS ÉTHIQUE" : a; }).join(" · ") || "—") + '</span></div><h3>Stockage</h3><p style="font-size:.78rem;color:#8a918d;line-height:1.6">Documents, notes et réglages sont enregistrés sur cet appareil, dans ce navigateur. Ils ne sont pas partagés avec les autres comptes.</p></div></div>';
     var box = pane.querySelector(".walls");
     function draw() { box.innerHTML = Object.keys(WALLS).map(function (k) { return '<button class="wl' + (k === cur ? " on" : "") + '" data-k="' + k + '" style="background:' + WALLS[k][1] + '"><span>' + WALLS[k][0] + "</span></button>"; }).join(""); }
@@ -304,6 +307,217 @@
       };
     }
     render();
+  } };
+
+  /* ===== Messagerie ===== */
+  function whileOpen(el, fn, ms) { var t = setInterval(function () { if (!document.body.contains(el)) { clearInterval(t); return; } fn(); }, ms); }
+  function svcOf(g) { var x = window.GRADES && window.GRADES[g]; return x ? x.s : "direction"; }
+  var SCOL = { justice: "#d6504a", ethique: "#d6a36f", direction: "#a78bfa" };
+  function ini(n) { return String(n || "?").trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0).toUpperCase(); }).join(""); }
+  function linkify(t) { return t.replace(/(https?:\/\/[^\s<]+)/g, function (u) { return '<a href="' + u + '" target="_blank" rel="noopener noreferrer">' + u + "</a>"; }); }
+  function dmId(a, b) { return "dm_" + [a, b].sort().join("_"); }
+  var msgCss = document.createElement("style");
+  msgCss.textContent = [
+    ".ms{flex:1;display:grid;grid-template-columns:15.5rem 1fr;min-height:0;background:#1a1030;color:#e9e4f7;font-family:var(--f-serif)}",
+    ".ms button,.ms input,.ms textarea{font-family:inherit;color:inherit}",
+    ".ms .sd{background:#140b27;border-right:1px solid #2c1f4d;display:flex;flex-direction:column;min-height:0;min-width:0}",
+    ".ms .sd h6{margin:1rem 1rem .4rem;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:#8d80b8;font-weight:500}",
+    ".ms .lst{overflow-y:auto;min-height:0;flex:1}",
+    ".ms .ch{display:flex;align-items:center;gap:.5rem;width:calc(100% - .8rem);margin:1px .4rem;padding:.4rem .6rem;background:none;border:0;border-radius:.3rem;cursor:pointer;text-align:left;color:#b4a8d6;font-size:.95rem}",
+    ".ms .ch:hover{background:#ffffff0d;color:#fff}.ms .ch.on{background:#3b2a6e;color:#fff}",
+    ".ms .ch .h{color:#7a6ca6;font-family:var(--f-mono)}.ms .ch .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+    ".ms .ch .u{background:#e5484d;color:#fff;border-radius:1rem;font-family:var(--f-mono);font-size:.62rem;padding:.05rem .4rem}",
+    ".ms .av{width:2.3rem;height:2.3rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:.74rem;font-weight:500;color:#1a1030;flex:none}",
+    ".ms .ch .av{width:1.6rem;height:1.6rem;font-size:.6rem}",
+    ".ms .sq{margin:.2rem .6rem;padding:.4rem .6rem;background:#0e0720;border:1px solid #2c1f4d;border-radius:.3rem;width:calc(100% - 1.2rem);font-size:.85rem}",
+    ".ms .me{padding:.6rem .8rem;border-top:1px solid #2c1f4d;background:#0f081f;display:flex;gap:.6rem;align-items:center}.ms .me b{display:block;font-size:.88rem;line-height:1.1}.ms .me small{color:#8d80b8;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase}",
+    ".ms .mn{display:flex;flex-direction:column;min-height:0;min-width:0}",
+    ".ms .hd{padding:.7rem 1.1rem;border-bottom:1px solid #2c1f4d;display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}.ms .hd b{font-size:1.1rem}.ms .hd span{color:#8d80b8;font-size:.85rem}.ms .hd .md{margin-left:auto;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;border:1px solid #5b4b94;color:#b4a8d6}.ms .hd .md.ok{border-color:#3d8f67;color:#7fd1a5}.ms .hd .md.bad{border-color:#e5484d;color:#ff8a8f}",
+    ".ms .log{flex:1;overflow-y:auto;padding:.8rem 0;min-height:0}",
+    ".ms .day{display:flex;align-items:center;gap:.8rem;margin:1rem 1.1rem .4rem;color:#8d80b8;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase}.ms .day::before,.ms .day::after{content:'';flex:1;height:1px;background:#2c1f4d}.ms .day::before{flex:0 0 0}",
+    ".ms .m{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;padding:.15rem 1.1rem;position:relative}.ms .m:hover{background:#ffffff08}",
+    ".ms .m.cont{padding-top:0}.ms .m.cont .av{visibility:hidden;height:0}",
+    ".ms .m .t{font-size:.7rem;color:#7a6ca6;font-family:var(--f-mono);margin-left:.5rem}.ms .m .gr{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#8d80b8;margin-left:.5rem}",
+    ".ms .m .tx{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.45}.ms .m .tx a{color:#b69cff}.ms .m .tx em.act{color:#c9b8ff}.ms .m .ed{font-size:.62rem;color:#7a6ca6;font-family:var(--f-mono)}",
+    ".ms .m .ac{position:absolute;right:1rem;top:-.2rem;display:none;gap:.2rem;background:#241845;border:1px solid #3b2a6e;border-radius:.3rem;padding:.1rem}.ms .m:hover .ac{display:flex}",
+    ".ms .m .ac button{background:none;border:0;cursor:pointer;color:#c9b8ff;font-size:.7rem;padding:.2rem .45rem;font-family:var(--f-mono)}.ms .m .ac button:hover{background:#3b2a6e}",
+    ".ms .m textarea.ee{width:100%;background:#0e0720;border:1px solid #6d54c4;padding:.4rem .6rem;border-radius:.3rem;min-height:3rem;resize:vertical}",
+    ".ms .cmp{padding:.7rem 1.1rem 1rem;border-top:1px solid #2c1f4d}.ms .cmp .bx{display:flex;gap:.5rem;background:#241845;border:1px solid #3b2a6e;border-radius:.5rem;padding:.4rem}.ms .cmp .bx:focus-within{border-color:#8b5cf6}",
+    ".ms .cmp textarea{flex:1;background:none;border:0;outline:none;resize:none;min-height:2.4rem;max-height:8rem;padding:.4rem .5rem;line-height:1.4}.ms .cmp button{background:#7c4ddb;border:0;border-radius:.4rem;padding:0 1rem;cursor:pointer;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#fff}.ms .cmp button:hover{background:#9164f0}",
+    ".ms .cmp .tip{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.06em;color:#7a6ca6;margin-top:.3rem}.ms .ro{padding:1rem 1.1rem;color:#8d80b8;text-align:center;border-top:1px solid #2c1f4d;font-size:.9rem}",
+    ".ms .none{padding:2rem;text-align:center;color:#8d80b8}",
+    "@media (max-width:720px){.ms{grid-template-columns:1fr;grid-template-rows:auto 1fr}.ms .sd{border-right:0;border-bottom:1px solid #2c1f4d;max-height:9.5rem}.ms .me{display:none}.ms .sq{display:none}}"
+  ].join("\n");
+  document.head.appendChild(msgCss);
+
+  SYS.msg = { nom: "Messagerie", icone: ICONS.msg, open: function (pane, arg, ctx) {
+    var S = ctx.session, seenKey = "pcseen:" + S.id, seen = jget(seenKey, {}), cur = null, sig = "", unread = {}, lastSend = 0, editId = null, armDel = null;
+    var chans = (window.PC_CANAUX || []).filter(function (c) { return S.grade === "direction" || !c.pour || !c.pour.length || c.pour.some(function (a) { return S.apps.indexOf(a) >= 0; }); });
+    function canWrite(c) { return c.dm || c.ecrire === "*" || S.grade === "direction" || (c.ecrire || []).indexOf(S.grade) >= 0; }
+    function people() {
+      var C = window.PC_COMPTES || {}, sp = (window.PCNET && PCNET.cache) || {};
+      return Object.keys(C).filter(function (k) { return k !== S.id && C[k].actif !== false && sp[k] === undefined; })
+        .map(function (k) { var g = window.GRADES && GRADES[C[k].grade]; return { id: k, nom: C[k].nom, grade: g ? g.l : "", svc: g ? g.s : "direction" }; })
+        .sort(function (a, b) { return a.nom.localeCompare(b.nom, "fr"); });
+    }
+    pane.innerHTML = '<div class="ms"><div class="sd"><h6>Salons</h6><div id="mc"></div><h6>Messages privés</h6><input class="sq" placeholder="Rechercher une personne…"><div class="lst" id="md"></div><div class="me"><span class="av" style="background:' + (SCOL[svcOf(S.grade)] || "#a78bfa") + '">' + esc(ini(S.nom)) + '</span><span><b>' + esc(S.nom) + '</b><small>' + esc(S.id) + '</small></span></div></div>' +
+      '<div class="mn"><div class="hd"></div><div class="log"></div><div class="cmpw"></div></div></div>';
+    var el = { mc: pane.querySelector("#mc"), md: pane.querySelector("#md"), sq: pane.querySelector(".sq"), hd: pane.querySelector(".hd"), log: pane.querySelector(".log"), cmp: pane.querySelector(".cmpw") };
+
+    function badge(id) { return unread[id] ? '<span class="u">' + (unread[id] > 99 ? "99+" : unread[id]) + "</span>" : ""; }
+    function drawSide() {
+      el.mc.innerHTML = chans.map(function (c) { return '<button class="ch' + (cur && cur.id === c.id ? " on" : "") + '" data-c="' + c.id + '"><span class="h">#</span><span class="n">' + esc(c.nom) + "</span>" + badge(c.id) + "</button>"; }).join("");
+      var q = norm(el.sq.value);
+      el.md.innerHTML = people().filter(function (p) { return !q || norm(p.nom + " " + p.id).indexOf(q) >= 0; }).map(function (p) {
+        var id = dmId(S.id, p.id);
+        return '<button class="ch' + (cur && cur.id === id ? " on" : "") + '" data-d="' + p.id + '"><span class="av" style="background:' + (SCOL[p.svc] || "#a78bfa") + '">' + esc(ini(p.nom)) + '</span><span class="n">' + esc(p.nom) + "</span>" + badge(id) + "</button>";
+      }).join("") || '<div class="none" style="padding:1rem;font-size:.8rem">Personne.</div>';
+    }
+    function drawHead() {
+      if (!cur) { el.hd.innerHTML = ""; return; }
+      el.hd.innerHTML = "<b>" + (cur.dm ? "@ " : "# ") + esc(cur.nom) + "</b><span>" + esc(cur.desc || "") + '</span><span class="md ' + (PCNET.remote ? (PCNET.err ? "bad" : "ok") : "") + '">' + (PCNET.remote ? (PCNET.err ? "Serveur injoignable" : "En ligne") : "Mode local") + "</span>";
+    }
+    function drawComposer() {
+      if (!cur) { el.cmp.innerHTML = ""; return; }
+      if (!canWrite(cur)) { el.cmp.innerHTML = '<div class="ro">Salon en lecture seule pour votre grade.</div>'; return; }
+      el.cmp.innerHTML = '<div class="cmp"><div class="bx"><textarea maxlength="1500" placeholder="Écrire dans ' + (cur.dm ? "@" : "#") + esc(cur.nom) + '…"></textarea><button type="button">Envoyer</button></div><div class="tip">Entrée : envoyer · Maj+Entrée : nouvelle ligne · /me pour une action (ex : /me ouvre le dossier) · /roll 1d20 pour un jet de dés</div></div>';
+      var ta = el.cmp.querySelector("textarea"), bt = el.cmp.querySelector("button");
+      function go() {
+        var t = ta.value.trim(); if (!t || Date.now() - lastSend < 600) return; lastSend = Date.now(); ta.value = "";
+        var rm = /^\/(?:roll|dé|de)\s*(\d{0,2})d(\d{1,4})\b/i.exec(t);
+        if (rm) { var n = Math.min(parseInt(rm[1] || "1", 10) || 1, 20), f = Math.max(parseInt(rm[2], 10) || 6, 2), r = [], sum = 0;
+          for (var i = 0; i < n; i++) { var v = 1 + Math.floor(Math.random() * f); r.push(v); sum += v; }
+          t = "/me lance " + n + "d" + f + " 🎲 : " + (n > 1 ? r.join(" + ") + " = " : "") + sum; }
+        PCNET.send({ canal: cur.id, auteur_id: S.id, auteur: S.nom, grade: S.gradeLabel || "", service: svcOf(S.grade), texte: t }).then(function () { PCNET.err = false; refresh(true); }, function () { PCNET.err = true; ta.value = t; drawHead(); });
+      }
+      bt.onclick = go; ta.onkeydown = function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); go(); } };
+      if (!matchMedia("(pointer:coarse)").matches) ta.focus();
+    }
+    function day(iso) { return new Date(iso).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" }); }
+    function hour(iso) { return new Date(iso).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }); }
+    function drawLog(list, stick) {
+      if (!list.length) { el.log.innerHTML = '<div class="none">Aucun message. Lancez la discussion.</div>'; return; }
+      var h = "", prev = null;
+      list.forEach(function (m) {
+        var d = day(m.created_at), same = prev && prev.auteur_id === m.auteur_id && day(prev.created_at) === d && (new Date(m.created_at) - new Date(prev.created_at)) < 300000;
+        if (!prev || day(prev.created_at) !== d) h += '<div class="day">' + esc(d) + "</div>";
+        var mine = m.auteur_id === S.id, mod = S.grade === "direction";
+        var raw = String(m.texte), act = /^\/me\s/.test(raw), body = act ? '<em class="act">* ' + esc(m.auteur) + " " + linkify(esc(raw.slice(4).trim())) + "</em>" : linkify(esc(raw));
+        if (editId === m.id) body = '<textarea class="ee" data-e="' + m.id + '">' + esc(raw) + '</textarea><div class="tip" style="font-family:var(--f-mono);font-size:.62rem;color:#8d80b8">Entrée : valider · Échap : annuler</div>';
+        h += '<div class="m' + (same ? " cont" : "") + '" data-id="' + m.id + '"><span class="av" style="background:' + (SCOL[m.service] || "#a78bfa") + '">' + esc(ini(m.auteur)) + "</span><div>" +
+          (same ? "" : '<div><b style="color:' + (SCOL[m.service] || "#c9b8ff") + '">' + esc(m.auteur) + '</b><span class="gr">' + esc(m.grade || "") + '</span><span class="t">' + hour(m.created_at) + "</span></div>") +
+          '<div class="tx">' + body + (m.modifie ? ' <span class="ed">(modifié)</span>' : "") + "</div></div>" +
+          ((mine || mod) && editId !== m.id ? '<div class="ac">' + (mine ? '<button data-ed="' + m.id + '">Modifier</button>' : "") + '<button data-dl="' + m.id + '">' + (armDel === m.id ? "Confirmer ?" : "Supprimer") + "</button></div>" : "") + "</div>";
+        prev = m;
+      });
+      el.log.innerHTML = h;
+      if (stick) el.log.scrollTop = el.log.scrollHeight;
+      var ee = el.log.querySelector("textarea.ee");
+      if (ee) { ee.focus(); ee.onkeydown = function (e) { if (e.key === "Escape") { editId = null; sig = ""; refresh(); } else if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); var v = ee.value.trim(); if (v) PCNET.edit(editId, v).then(function () { editId = null; refresh(true); }); } }; }
+    }
+    el.log.onclick = function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      if (b.dataset.ed) { editId = +b.dataset.ed; sig = ""; refresh(); }
+      else if (b.dataset.dl) { var id = +b.dataset.dl; if (armDel === id) { armDel = null; PCNET.remove(id).then(function () { refresh(true); }); } else { armDel = id; sig = ""; refresh(); } }
+    };
+    function refresh(force) {
+      if (!cur) return;
+      var c = cur;
+      PCNET.msgs(c.id, 0).then(function (list) {
+        PCNET.err = false; if (c !== cur) return;
+        var s = list.map(function (m) { return m.id + ":" + (m.texte || "").length + (m.modifie ? "e" : ""); }).join(",") + "|" + editId + "|" + armDel;
+        if (force || s !== sig) {
+          var atEnd = el.log.scrollHeight - el.log.scrollTop - el.log.clientHeight < 80;
+          sig = s; drawLog(list, force || atEnd || !el.log.children.length);
+        }
+        if (list.length) { var last = list[list.length - 1].id; if ((seen[c.id] || 0) < last) { seen[c.id] = last; jset(seenKey, seen); unread[c.id] = 0; drawSide(); } }
+        drawHead();
+      }, function () { PCNET.err = true; drawHead(); });
+    }
+    function open(c) { cur = c; sig = ""; editId = null; armDel = null; el.log.innerHTML = ""; drawSide(); drawHead(); drawComposer(); refresh(true); }
+    el.mc.onclick = function (e) { var b = e.target.closest("[data-c]"); if (b) open(chans.filter(function (c) { return c.id === b.dataset.c; })[0]); };
+    el.md.onclick = function (e) { var b = e.target.closest("[data-d]"); if (!b) return; var p = people().filter(function (x) { return x.id === b.dataset.d; })[0]; if (p) open({ id: dmId(S.id, p.id), nom: p.nom, desc: p.grade, dm: true }); };
+    el.sq.oninput = drawSide;
+    function allIds() { return chans.map(function (c) { return c.id; }).concat(people().map(function (p) { return dmId(S.id, p.id); })); }
+    function countUnread() {
+      PCNET.recent(allIds()).then(function (rows) {
+        var u = {}; (rows || []).forEach(function (r) { if (r.auteur_id !== S.id && r.id > (seen[r.canal] || 0) && !(cur && cur.id === r.canal)) u[r.canal] = (u[r.canal] || 0) + 1; });
+        var s1 = JSON.stringify(u); if (s1 !== JSON.stringify(unread)) { unread = u; drawSide(); }
+      }, function () {});
+    }
+    whileOpen(pane, refresh, 2500); whileOpen(pane, countUnread, 6000);
+    drawSide();
+    var first = chans.filter(function (c) { return c.id === "general"; })[0] || chans[0];
+    if (first) open(first); else el.hd.innerHTML = "<b>Aucun salon</b>";
+    countUnread();
+  } };
+
+  /* ===== Comptes : liste, suspension, création ===== */
+  SYS.comptes = { nom: "Comptes", icone: ICONS.users, visible: function (S) { return ["direction", "presidence", "eth_pres"].indexOf(S.grade) >= 0; }, open: function (pane, arg, ctx) {
+    var S = ctx.session, scope = S.grade === "direction" ? null : (S.grade === "presidence" ? "justice" : "ethique"), tab = "liste", ask = null, note = "", filt = "";
+    var cs = document.createElement("style");
+    function gl(g) { return window.GRADES && GRADES[g] ? GRADES[g].l : g; }
+    function gs(g) { return window.GRADES && GRADES[g] ? GRADES[g].s : "direction"; }
+    function accs() {
+      var C = window.PC_COMPTES || {};
+      return Object.keys(C).filter(function (k) { return !scope || gs(C[k].grade) === scope; }).sort();
+    }
+    pane.innerHTML = '<div class="sy"><div class="tb"><button data-t="liste">Comptes</button>' + (S.grade === "direction" ? '<button data-t="creer">Créer un compte</button>' : "") + '<input class="flt" placeholder="Rechercher…" style="background:#0b0f13;border:1px solid #2c363f;color:#e9e6dd;padding:.35rem .6rem;margin-left:auto"></div><div class="stg" id="cb"></div></div>';
+    var cb = pane.querySelector("#cb"), flt = pane.querySelector(".flt");
+    function banner() {
+      return PCNET.remote ? '<p style="font-size:.74rem;color:#7fd1a5;margin-bottom:1rem">Serveur connecté : une suspension s\'applique immédiatement partout (au plus 20 secondes).</p>'
+        : '<p style="font-size:.74rem;color:#e0a95f;margin-bottom:1rem;line-height:1.6">Mode local : une suspension n\'est effective que sur cet appareil. Pour qu\'elle soit partagée, remplissez config.js (serveur), ou utilisez « Ligne fichier » et collez-la dans comptes-pc.js sur GitHub.</p>';
+    }
+    function drawList() {
+      var C = window.PC_COMPTES || {}, sp = PCNET.cache || {}, q = norm(filt);
+      var rows = accs().filter(function (k) { return !q || norm(k + " " + C[k].nom + " " + gl(C[k].grade)).indexOf(q) >= 0; }).map(function (k) {
+        var c = C[k], fileOff = c.actif === false, off = fileOff || sp[k] !== undefined, self = k === S.id;
+        var st = fileOff ? '<span style="color:#ff8a8f">Suspendu (fichier)</span>' : off ? '<span style="color:#ff8a8f">Suspendu' + (sp[k] ? " — " + esc(sp[k]) : "") + "</span>" : '<span style="color:#7fd1a5">Actif</span>';
+        var act = "";
+        if (!self && !(c.grade === "direction" && S.grade !== "direction")) {
+          if (ask === k) act = '<input class="rs" placeholder="Motif (facultatif)" style="background:#0b0f13;border:1px solid #c2352b;color:#e9e6dd;padding:.25rem .4rem;width:11rem"> <button class="sbtn" data-ok="' + k + '">Confirmer</button> <button class="sbtn" data-no="1">Annuler</button>';
+          else if (fileOff) act = '<span style="color:#8a918d;font-size:.7rem">retirer "actif": false dans comptes-pc.js</span>';
+          else if (off) act = '<button class="sbtn" data-re="' + k + '">Réactiver</button>';
+          else act = '<button class="sbtn" data-su="' + k + '">Suspendre</button>';
+          act += ' <button class="sbtn" data-ln="' + k + '" title="Ligne à coller dans comptes-pc.js pour une suspension définitive">Ligne fichier</button>';
+        }
+        return "<tr><td>" + esc(k) + "</td><td>" + esc(c.nom) + "</td><td>" + esc(gl(c.grade)) + "</td><td>" + (c.apps || []).map(function (a) { return a === "justice" ? "JUSTICE" : a === "ethique" ? "ÉTHIQUE" : a; }).join(" · ") + "</td><td>" + st + '</td><td style="white-space:nowrap">' + act + "</td></tr>";
+      }).join("");
+      cb.innerHTML = banner() + '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.78rem"><thead><tr style="text-align:left;color:#8a918d;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase"><th style="padding:.4rem">Matricule</th><th>Nom</th><th>Grade</th><th>Accès</th><th>Statut</th><th></th></tr></thead><tbody>' + (rows || '<tr><td colspan="6" class="emp">Aucun compte.</td></tr>') + "</tbody></table></div>" + (note ? '<p style="margin-top:1rem;font-size:.74rem">' + note + "</p>" : "");
+      cb.querySelectorAll("td,th").forEach(function (td) { td.style.padding = ".5rem .4rem"; td.style.borderBottom = "1px solid #252d34"; });
+    }
+    cb.onclick = function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      var C = window.PC_COMPTES || {};
+      if (b.dataset.su) { ask = b.dataset.su; drawList(); var i = cb.querySelector(".rs"); if (i) i.focus(); }
+      else if (b.dataset.no) { ask = null; drawList(); }
+      else if (b.dataset.ok) { var r = (cb.querySelector(".rs") || {}).value || "", id = b.dataset.ok; PCNET.suspend(id, r.trim(), S.id).then(function () { ask = null; note = "Compte " + esc(id) + " suspendu."; document.dispatchEvent(new CustomEvent("pcsusp")); drawList(); }, function () { note = "Serveur injoignable : suspension non enregistrée."; drawList(); }); }
+      else if (b.dataset.re) { var id2 = b.dataset.re; PCNET.unsuspend(id2).then(function () { note = "Compte " + esc(id2) + " réactivé."; document.dispatchEvent(new CustomEvent("pcsusp")); drawList(); }, function () { note = "Serveur injoignable : réactivation non enregistrée."; drawList(); }); }
+      else if (b.dataset.ln) { var k = b.dataset.ln, line = '  "' + k + '": ' + JSON.stringify(Object.assign({}, C[k], { actif: false })) + ","; note = 'Ligne à coller dans comptes-pc.js (remplace la ligne de ce compte) :<br><textarea readonly style="width:100%;margin-top:.5rem;background:#0b0f13;color:#e9e6dd;border:1px solid #252d34;font-size:.7rem;min-height:5rem;word-break:break-all">' + esc(line) + "</textarea>"; drawList(); }
+    };
+    flt.oninput = function () { filt = flt.value; if (tab === "liste") drawList(); };
+    function drawCreate() {
+      var opts = "";
+      ["direction", "justice", "ethique"].forEach(function (sv) { opts += '<optgroup label="' + GSERV[sv] + '">'; Object.keys(GRADES).filter(function (k) { return GRADES[k].s === sv; }).forEach(function (k) { opts += '<option value="' + k + '">' + esc(GRADES[k].l) + "</option>"; }); opts += "</optgroup>"; });
+      cb.innerHTML = '<h3>Créer un compte</h3><p class="micro" style="margin-bottom:1rem;color:#8a918d">Le compte n\'existe qu\'une fois la ligne collée dans comptes-pc.js sur GitHub.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;max-width:56rem"><div><label class="micro">Matricule</label><input id="gId" placeholder="ex : ETH-73-0004" style="width:100%;background:#0b0f13;border:1px solid #252d34;color:#e9e6dd;padding:.6rem"></div><div><label class="micro">Nom affiché</label><input id="gNom" placeholder="ex : Louis MARTIN" style="width:100%;background:#0b0f13;border:1px solid #252d34;color:#e9e6dd;padding:.6rem"></div><div><label class="micro">Grade</label><select id="gGr" style="width:100%;background:#0b0f13;border:1px solid #252d34;color:#e9e6dd;padding:.6rem">' + opts + '</select></div><div><label class="micro">Mot de passe</label><input id="gPw" style="width:100%;background:#0b0f13;border:1px solid #252d34;color:#e9e6dd;padding:.6rem" placeholder="8 caractères minimum"></div></div><div style="margin:.8rem 0"><label class="chk" style="display:inline-flex;gap:.4rem;margin-right:1.2rem"><input type="checkbox" id="aJ"> ACCÈS JUSTICE</label><label class="chk" style="display:inline-flex;gap:.4rem"><input type="checkbox" id="aE"> ACCÈS ÉTHIQUE</label></div><button class="sbtn" id="gRand">Mot de passe aléatoire</button> <button class="sbtn" id="gGo" style="background:#c2352b;border-color:#c2352b">Générer la ligne</button><div id="gOut" style="margin-top:1rem"></div>';
+      var gs2 = cb.querySelector("#gGr");
+      function pre() { var sv = GRADES[gs2.value].s; cb.querySelector("#aJ").checked = (sv === "justice" || sv === "direction"); cb.querySelector("#aE").checked = (sv === "ethique" || sv === "direction"); }
+      gs2.onchange = pre; pre();
+      cb.querySelector("#gRand").onclick = function () { var a = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789", s = ""; var r = crypto.getRandomValues(new Uint32Array(12)); for (var i = 0; i < 12; i++) s += a[r[i] % a.length]; cb.querySelector("#gPw").value = s; };
+      cb.querySelector("#gGo").onclick = async function () {
+        var id = cb.querySelector("#gId").value.trim().toUpperCase().replace(/[^A-Z0-9-]/g, ""), nom = cb.querySelector("#gNom").value.trim(), pw = cb.querySelector("#gPw").value, ap = [];
+        if (cb.querySelector("#aJ").checked) ap.push("justice"); if (cb.querySelector("#aE").checked) ap.push("ethique");
+        var out = cb.querySelector("#gOut");
+        if (!id || !nom || pw.length < 8) { out.textContent = "Matricule, nom et mot de passe (8 caractères min.) requis."; return; }
+        if ((window.PC_COMPTES || {})[id]) { out.textContent = "Ce matricule existe déjà."; return; }
+        var salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+        var line = '  "' + id + '": ' + JSON.stringify({ nom: nom, grade: gs2.value, apps: ap, salt: salt, hash: await derive(pw, salt) }) + ",";
+        out.innerHTML = '<p class="micro">Ligne à coller dans comptes-pc.js (avant la dernière accolade)</p><textarea readonly style="width:100%;background:#0b0f13;color:#e9e6dd;border:1px solid #252d34;font-size:.72rem;min-height:5rem;word-break:break-all">' + esc(line) + '</textarea><p style="margin-top:.6rem;font-size:.8rem">À remettre à l\'agent : <b>' + esc(id) + "</b> / <b>" + esc(pw) + "</b></p>";
+      };
+    }
+    pane.querySelector(".tb").onclick = function (e) { var t = e.target.dataset && e.target.dataset.t; if (!t) return; tab = t; if (t === "liste") { flt.style.display = ""; PCNET.suspensions().then(drawList); drawList(); } else { flt.style.display = "none"; drawCreate(); } };
+    PCNET.suspensions().then(function () { if (tab === "liste") drawList(); });
+    drawList();
   } };
 
   window.SYS = SYS; window.SYS_FS = FS; window.SYS_ICONS = ICONS; window.SYS_WALLS = WALLS;
