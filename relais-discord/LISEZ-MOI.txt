@@ -1,0 +1,45 @@
+RELAIS DISCORD : relier les vrais bots (Censure.iaa, Justice.iaa, ethique.iaa) au poste
+==========================================================================================
+
+Pourquoi un relais : le site est public (GitHub Pages). On ne peut pas y mettre le token d'un bot, sinon
+n'importe qui pourrait le voler et prendre le contrôle du bot. Le relais est un petit programme gratuit
+hébergé chez Cloudflare : il garde les tokens secrets et n'obéit qu'aux Présidences (par clé).
+
+Ce qu'il te faut : un compte Cloudflare gratuit, et les 3 tokens des bots
+(Discord Developer Portal > ton application > Bot > Reset Token, puis copier).
+
+ÉTAPE 1 : créer le relais
+  1. dash.cloudflare.com > Workers & Pages > Create > Create Worker > donne un nom (ex : relais-astrea) > Deploy.
+  2. Clique sur Edit code, efface tout, colle le contenu de worker.js, puis Deploy.
+  3. Note l'adresse du relais, du type : https://relais-astrea.TONNOM.workers.dev
+
+ÉTAPE 2 : configurer le relais (Settings > Variables and Secrets > Add)
+  Type "Secret" :
+    BOT_TOKEN_CENSURE   = token de Censure.iaa
+    BOT_TOKEN_JUSTICE   = token de Justice.iaa
+    BOT_TOKEN_ETHIQUE   = token de ethique.iaa
+    RELAIS_KEYS         = deux longues clés inventées, séparées par une virgule
+                          (ex : jur-8f3k2m9x0q7w,eth-p4t6y1n8c5v2). Une clé pour chaque Présidence.
+  Type "Text" :
+    ALLOWED_ORIGIN      = https://headquarterastrea.github.io
+    ALLOWED_GUILDS      = (facultatif) les identifiants des serveurs DJ et CE séparés par une virgule
+                          (Discord : activer le mode développeur, clic droit sur le serveur > Copier l'identifiant)
+  Puis Deploy.
+
+ÉTAPE 3 : brancher le site
+  Dans ia.js, remplis :   relais: { url: "https://relais-astrea.TONNOM.workers.dev" }
+  Mets le fichier à jour sur GitHub.
+
+ÉTAPE 4 : donner la clé aux Présidences
+  Chaque Président ouvre Relais Discord > onglet Connexion, colle sa clé, Enregistrer.
+  L'application affiche alors tous les serveurs et salons où le bot est présent : on choisit et on envoie.
+
+PERMISSIONS DANS DISCORD
+  Chaque bot doit être dans le serveur, avec au minimum : Voir le salon, Envoyer des messages,
+  Intégrer des liens, Voir les anciens messages (pour pouvoir supprimer un message envoyé).
+
+SÉCURITÉ
+  - Ne mets jamais un token dans un fichier du site ni dans cette conversation. Si un token a fuité : Reset Token.
+  - Une clé de Présidence qui fuite permet d'écrire avec les bots : change RELAIS_KEYS dans Cloudflare.
+  - Le relais ne supprime que les messages écrits par le bot lui-même.
+  - Le relais peut tourner en parallèle de ton programme de bot actuel : il n'y a pas de conflit.
