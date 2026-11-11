@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FIM Resh - 1</title>
+<style>
+/* ============ VOS COULEURS : changez ici ============ */
+:root{
+  --fond:#ffffff;      /* fond de la page */
+  --texte:#111111;
+  --accent:#555555;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--fond);color:var(--texte);font-family:system-ui,sans-serif}
+[hidden]{display:none!important}
+
+/* écran d'accès refusé */
+#gate{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}
+
+/* LOGO AU MILIEU : remplacez fim/logo.png par votre image (même nom de fichier) */
+#fond{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#fond img{max-width:min(60vmin,28rem);max-height:60vh;opacity:1}
+
+/* contenu par-dessus : ajoutez vos blocs ici */
+#app{position:relative;min-height:100%;padding:1.5rem}
+/* ===================================================== */
+</style>
+</head>
+<body>
+
+<div id="gate" hidden>
+  <p>Accès refusé.</p>
+</div>
+
+<div id="fond" hidden><img src="logo.png" alt=""></div>
+
+<div id="app" hidden>
+  <!-- ======= ZONE A CODER ======= -->
+
+  <!-- ============================= -->
+</div>
+
+<script>
+/* Session ouverte dans le poste (compte, grade, accès) */
+var SES = null;
+try { SES = JSON.parse(sessionStorage.getItem("pc_session") || "null"); } catch (e) {}
+
+/* Sans le droit "fim" : porte fermée */
+if (!SES || !SES.apps || SES.apps.indexOf("fim") < 0) {
+  document.getElementById("gate").hidden = false;
+} else {
+  document.getElementById("fond").hidden = false;
+  document.getElementById("app").hidden = false;
+  start();
+}
+
+/* Qui est connecté : SES.nom, SES.id (matricule), SES.grade ("fim_cap" ou "fim_op") */
+var EST_CAPITAINE = SES && SES.grade === "fim_cap";
+var EST_OPERATEUR = SES && SES.grade === "fim_op";
+
+function start() {
+  /* ======= VOTRE CODE JS ICI ======= */
+
+  /* ================================= */
+}
+</script>
+</body>
+</html>
